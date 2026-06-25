@@ -2,307 +2,314 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>英语口语陪练</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>英语口语练习</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f0ede8;
-  --text:#1a1a1a;--text2:#555;--text3:#999;
-  --border:#e0ddd8;--border2:#ccc;
-  --blue:#185FA5;--blue-light:#E6F1FB;--blue-dark:#0C447C;
-  --teal:#0F6E56;--teal-light:#E1F5EE;
-  --amber:#854F0B;--amber-light:#FAEEDA;
-  --coral:#993C1D;--coral-light:#FAECE7;
-  --purple:#534AB7;--purple-light:#EEEDFE;
-  --green:#3B6D11;--green-light:#EAF3DE;
-  --radius:12px;--radius-sm:8px;
+  --bg:#f5f4f0;--white:#fff;
+  --blue:#1a6fc4;--blue-dark:#0f4f8f;--blue-light:#e8f1fb;
+  --teal:#0a7c4f;--teal-light:#e6f5ee;
+  --amber:#854F0B;--amber-light:#faeeda;
+  --coral:#993C1D;--coral-light:#faece7;
+  --purple:#534AB7;--purple-light:#eeedfe;
+  --text:#1a1a1a;--text2:#666;--text3:#aaa;
+  --border:#e8e5e0;
+  --r:14px;--r-lg:20px;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh;}
-nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
-.nav-inner{max-width:960px;margin:0 auto;padding:0 1rem;display:flex;align-items:center;height:52px;}
-.nav-logo{font-size:16px;font-weight:600;color:var(--blue);margin-right:auto;white-space:nowrap;}
-.nav-tabs{display:flex;}
-.nav-tab{padding:0 14px;height:52px;display:flex;align-items:center;font-size:14px;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
-.nav-tab:hover{color:var(--text);}
-.nav-tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:500;}
-.page{display:none;max-width:960px;margin:0 auto;padding:1.5rem 1rem;}
-.page.active{display:block;}
-.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;}
-.card+.card{margin-top:1rem;}
-.sec-title{font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px;}
-.sec-sub{font-size:14px;color:var(--text2);margin-bottom:1.25rem;}
-.tag{font-size:11px;padding:2px 8px;border-radius:20px;display:inline-block;font-weight:500;}
-.tag-blue{background:var(--blue-light);color:var(--blue);}
-.tag-teal{background:var(--teal-light);color:var(--teal);}
-.tag-amber{background:var(--amber-light);color:var(--amber);}
-.tag-coral{background:var(--coral-light);color:var(--coral);}
-.tag-purple{background:var(--purple-light);color:var(--purple);}
-.btn{padding:8px 16px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--bg);color:var(--text);font-size:14px;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;}
-.btn:hover{background:var(--bg2);}
-.btn-primary{background:var(--blue);color:#fff;border-color:var(--blue);}
-.btn-primary:hover{background:var(--blue-dark);}
-.btn-sm{padding:5px 12px;font-size:13px;}
-.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
-.scene-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:border-color .15s,box-shadow .15s;}
-.scene-card:hover{border-color:var(--blue);box-shadow:0 2px 8px rgba(24,95,165,.1);}
-.scene-emoji{font-size:28px;margin-bottom:8px;}
-.scene-name{font-size:14px;font-weight:600;margin-bottom:4px;}
-.scene-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-top:4px;}
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem;}
-.role-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;cursor:pointer;text-align:center;transition:all .15s;}
-.role-card:hover{border-color:var(--blue);background:var(--blue-light);}
-.role-cn{font-size:16px;font-weight:600;}
-.role-en{font-size:13px;color:var(--text2);margin-top:2px;}
-.role-hint{font-size:12px;color:var(--text3);margin-top:6px;}
-.context-bar{background:var(--blue-light);border-left:3px solid var(--blue);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--blue-dark);line-height:1.6;margin-bottom:12px;}
-.chat-messages{display:flex;flex-direction:column;gap:10px;min-height:300px;max-height:450px;overflow-y:auto;padding:4px 2px;margin-bottom:12px;}
-.bubble{max-width:80%;padding:10px 14px;font-size:14px;line-height:1.6;border-radius:16px;word-break:break-word;}
-.bubble.ai{background:var(--bg2);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── 底部导航 ── */
+.tab-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);}
+.tab-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px 6px;cursor:pointer;gap:2px;transition:opacity .15s;}
+.tab-icon{font-size:22px;line-height:1;}
+.tab-label{font-size:11px;color:var(--text3);}
+.tab-item.active .tab-label{color:var(--blue);font-weight:500;}
+
+/* ── 页面 ── */
+.page{display:none;flex-direction:column;min-height:100vh;padding-bottom:60px;}
+.page.active{display:flex;}
+.page-header{background:var(--white);padding:16px 16px 12px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.page-title{font-size:20px;font-weight:700;color:var(--text);}
+.page-sub{font-size:13px;color:var(--text2);margin-top:3px;}
+.page-body{flex:1;padding:14px;overflow-y:auto;}
+
+/* ── 通用 ── */
+.card{background:var(--white);border-radius:var(--r);padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:10px;}
+.btn{padding:10px 18px;border-radius:var(--r);border:none;font-size:14px;font-family:inherit;cursor:pointer;font-weight:500;transition:opacity .15s;}
+.btn:active{opacity:.8;}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-outline{background:var(--white);color:var(--text);border:1px solid var(--border);}
+.btn-sm{padding:6px 14px;font-size:13px;}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;}
+.tag-food{background:var(--amber-light);color:var(--amber);}
+.tag-travel{background:var(--blue-light);color:var(--blue);}
+.tag-daily{background:var(--purple-light);color:var(--purple);}
+.tag-health{background:var(--coral-light);color:var(--coral);}
+.tag-finance{background:var(--teal-light);color:var(--teal);}
+.empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:14px;}
+
+/* ── 口语练习页 ── */
+.level-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px;}
+.level-tab{flex-shrink:0;padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:var(--white);font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s;}
+.level-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.level-desc{background:var(--blue-light);border-radius:var(--r);padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--blue-dark);line-height:1.6;}
+.speak-scene-list{display:flex;flex-direction:column;gap:8px;}
+.speak-scene-card{background:var(--white);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:transform .1s;}
+.speak-scene-card:active{transform:scale(.97);}
+.speak-scene-icon{font-size:28px;flex-shrink:0;}
+.speak-scene-info{flex:1;}
+.speak-scene-name{font-size:15px;font-weight:600;}
+.speak-scene-desc{font-size:12px;color:var(--text2);margin-top:2px;}
+.speak-scene-arrow{color:var(--text3);font-size:18px;}
+
+/* ── 对话屏幕（全屏覆盖）── */
+#chat-screen{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;flex-direction:column;}
+#chat-screen.open{display:flex;}
+.chat-nav{background:var(--white);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.chat-back{font-size:22px;cursor:pointer;color:var(--text2);padding:4px 6px;}
+.chat-nav-title{flex:1;font-size:15px;font-weight:600;}
+.chat-level-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:500;}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.bubble{max-width:80%;padding:11px 15px;font-size:15px;line-height:1.6;border-radius:18px;word-break:break-word;animation:pop .2s ease;}
+@keyframes pop{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.bubble.ai{background:var(--white);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.07);}
 .bubble.user{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
-.bubble.hint{background:var(--amber-light);color:var(--amber);align-self:flex-start;font-style:italic;font-size:13px;}
-.bubble.system{background:var(--teal-light);color:var(--teal);align-self:center;font-size:13px;text-align:center;max-width:95%;border-radius:var(--radius-sm);}
-.bubble.typing{background:var(--bg2);color:var(--text3);align-self:flex-start;border-bottom-left-radius:4px;font-style:italic;}
-.chat-tools{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
-.chat-input-row{display:flex;gap:8px;align-items:center;}
-.chat-input-row textarea{flex:1;resize:none;font-size:14px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-family:inherit;line-height:1.5;min-height:44px;max-height:100px;color:var(--text);background:var(--bg);outline:none;}
-.chat-input-row textarea:focus{border-color:var(--blue);}
-.chat-tip{font-size:12px;color:var(--text3);margin-top:6px;}
-.mic-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--border2);background:var(--bg);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
-.mic-btn:hover{background:var(--bg2);}
-.mic-btn.listening{background:#e24b4a;border-color:#e24b4a;animation:pulse 1s infinite;}
-@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
-.score-big{font-size:56px;font-weight:700;color:var(--blue);line-height:1;}
-.score-sub{font-size:13px;color:var(--text2);margin-top:4px;}
-.bars-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1rem;}
-.bar-label{display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:5px;}
-.bar-track{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
-.bar-fill{height:100%;background:var(--blue);border-radius:3px;transition:width .7s ease;}
-.feedback-box{background:var(--bg2);border-radius:var(--radius);padding:1.25rem;margin-top:1rem;font-size:14px;line-height:1.8;white-space:pre-wrap;}
-.encourage-box{background:var(--teal-light);border-radius:var(--radius);padding:1rem 1.25rem;margin-top:1rem;font-size:14px;color:var(--teal);line-height:1.7;}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem;}
-.stat-card{background:var(--bg2);border-radius:var(--radius-sm);padding:1rem;text-align:center;}
-.stat-num{font-size:28px;font-weight:700;color:var(--blue);}
-.stat-label{font-size:12px;color:var(--text2);margin-top:2px;}
-.record-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
-.record-item:last-child{border-bottom:none;}
-.record-score{font-size:20px;font-weight:700;color:var(--blue);min-width:36px;text-align:right;}
-.vocab-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1rem;}
-.vocab-tab{padding:8px 16px;font-size:14px;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;transition:all .15s;}
-.vocab-tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:500;}
-.phrase-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:1rem;}
-.phrase-topic-btn{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;font-size:13px;transition:all .15s;text-align:center;}
-.phrase-topic-btn:hover,.phrase-topic-btn.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue);}
-.phrase-topic-name{font-size:12px;margin-top:4px;color:var(--text2);}
-.phrase-topic-btn.active .phrase-topic-name{color:var(--blue);}
-.phrase-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);gap:10px;}
+.bubble.sys{background:var(--teal-light);color:var(--teal);align-self:center;font-size:13px;text-align:center;max-width:88%;border-radius:10px;padding:7px 14px;}
+.bubble.err{background:var(--amber-light);color:var(--amber);align-self:center;font-size:13px;text-align:center;max-width:88%;border-radius:10px;padding:7px 14px;}
+.chat-bottom{flex-shrink:0;background:var(--white);border-top:1px solid var(--border);padding:16px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.chat-status{font-size:14px;color:var(--text2);height:22px;text-align:center;}
+.mic-wrap{position:relative;}
+.mic-big{width:76px;height:76px;border-radius:50%;border:none;cursor:pointer;font-size:34px;display:flex;align-items:center;justify-content:center;background:var(--blue);box-shadow:0 4px 18px rgba(26,111,196,.35);transition:all .2s;}
+.mic-big:active{transform:scale(.92);}
+.mic-big.disabled{background:#ccc;box-shadow:none;cursor:default;}
+.mic-big.listening{background:#e24b4a;box-shadow:0 4px 18px rgba(226,75,74,.35);animation:pulse 1.1s ease-in-out infinite;}
+.mic-big.speaking{background:var(--teal);box-shadow:0 4px 18px rgba(10,124,79,.35);}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+.chat-hint{font-size:12px;color:var(--text3);}
+.chat-end-btn{font-size:13px;color:var(--text3);background:none;border:1px solid var(--border);border-radius:20px;padding:6px 18px;cursor:pointer;font-family:inherit;}
+
+/* ── 结果屏幕 ── */
+#result-screen{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;flex-direction:column;overflow-y:auto;}
+#result-screen.open{display:flex;}
+.result-top{background:var(--white);padding:24px 16px 20px;text-align:center;border-bottom:1px solid var(--border);}
+.result-emoji{font-size:52px;margin-bottom:8px;}
+.result-title{font-size:22px;font-weight:700;}
+.result-scene{font-size:14px;color:var(--text2);margin-top:4px;}
+.result-body{padding:14px;padding-bottom:30px;}
+.score-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.score-num{font-size:60px;font-weight:700;color:var(--blue);line-height:1;}
+.score-right{}
+.score-lbl{font-size:13px;color:var(--text2);}
+.score-badge{display:inline-block;margin-top:5px;font-size:13px;padding:4px 12px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-weight:500;}
+.bars{display:flex;flex-direction:column;gap:9px;margin-top:4px;}
+.bar-row{display:flex;align-items:center;gap:8px;}
+.bar-name{font-size:13px;color:var(--text2);width:46px;flex-shrink:0;}
+.bar-track{flex:1;height:7px;background:var(--bg);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;background:var(--blue);border-radius:4px;transition:width .8s ease;}
+.bar-val{font-size:13px;color:var(--text2);width:26px;text-align:right;flex-shrink:0;}
+.gold-phrases{background:var(--amber-light);border-radius:var(--r);padding:14px;margin-bottom:10px;}
+.gold-title{font-size:13px;font-weight:600;color:var(--amber);margin-bottom:8px;}
+.gold-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(133,79,11,.1);}
+.gold-item:last-child{border-bottom:none;}
+.gold-en{font-size:14px;font-weight:500;flex:1;}
+.gold-cn{font-size:12px;color:var(--amber);margin-top:2px;}
+.gold-save{font-size:18px;cursor:pointer;color:var(--amber);opacity:.6;flex-shrink:0;}
+.gold-save:hover{opacity:1;}
+.feedback-box{background:var(--white);border-radius:var(--r);padding:14px;margin-bottom:10px;font-size:14px;line-height:1.8;color:var(--text);white-space:pre-wrap;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.encourage-box{background:var(--teal-light);border-radius:var(--r);padding:14px;margin-bottom:14px;font-size:14px;color:var(--teal);line-height:1.7;}
+.result-btns{display:flex;gap:8px;}
+.result-btns .btn{flex:1;padding:13px;}
+
+/* ── 场景练习页 ── */
+.scene-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.scene-card{background:var(--white);border-radius:var(--r);padding:12px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:transform .1s;}
+.scene-card:active{transform:scale(.96);}
+.scene-emoji{font-size:26px;margin-bottom:6px;}
+.scene-name{font-size:14px;font-weight:600;margin-bottom:3px;}
+.scene-desc{font-size:11px;color:var(--text2);line-height:1.4;}
+
+/* ── 词句库页 ── */
+.topic-scroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;}
+.topic-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--white);font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.topic-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.phrase-item{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);gap:8px;}
 .phrase-item:last-child{border-bottom:none;}
 .phrase-en{font-size:14px;font-weight:500;flex:1;}
-.phrase-cn{font-size:13px;color:var(--text2);min-width:100px;}
-.phrase-save{font-size:20px;cursor:pointer;color:var(--text3);padding:0 4px;transition:color .15s;}
-.phrase-save:hover{color:var(--blue);}
-.phrase-save.saved{color:var(--blue);}
-.vocab-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
-.vocab-item:last-child{border-bottom:none;}
-.vocab-en{font-size:14px;font-weight:500;flex:1;}
-.vocab-cn{font-size:13px;color:var(--text2);margin-top:2px;}
-.vocab-scene{font-size:11px;color:var(--text3);margin-top:2px;}
-.vocab-del{color:var(--text3);cursor:pointer;font-size:20px;padding:0 4px;}
-.vocab-del:hover{color:#e24b4a;}
-.vocab-add-row{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
-.vocab-add-row input{flex:1;min-width:120px;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;font-family:inherit;outline:none;}
-.vocab-add-row input:focus{border-color:var(--blue);}
-.free-topic-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg);font-size:13px;cursor:pointer;transition:all .15s;}
-.free-topic-btn:hover,.free-topic-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
-.free-level{padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);font-size:13px;cursor:pointer;transition:all .15s;}
-.free-level.active{background:var(--blue);color:#fff;border-color:var(--blue);}
-.back-btn{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);cursor:pointer;margin-bottom:1.25rem;background:none;border:none;font-family:inherit;padding:0;}
-.back-btn:hover{color:var(--text);}
-.modal-mask{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;}
-.modal-mask.open{display:flex;}
-.modal{background:var(--bg);border-radius:var(--radius);padding:1.5rem;max-width:400px;width:90%;}
-.modal h3{font-size:16px;font-weight:600;margin-bottom:1rem;}
-.modal input{width:100%;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;font-family:inherit;margin-bottom:8px;outline:none;}
-.modal input:focus{border-color:var(--blue);}
-.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem;}
-.empty{text-align:center;padding:3rem;color:var(--text3);font-size:14px;}
-.chat-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
-.loading-dot::after{content:'';animation:ldots 1.2s steps(4,end) infinite;}
-@keyframes ldots{0%,20%{content:'.'} 40%{content:'..'} 60%,80%{content:'...'} 100%{content:''}}
-@media(max-width:600px){
-  .nav-inner{flex-direction:column;height:auto;padding:0;}
-  .nav-logo{width:100%;padding:10px 1rem 4px;font-size:15px;}
-  .nav-tabs{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  .nav-tab{padding:0 12px;height:40px;font-size:13px;flex-shrink:0;}
-  .scene-grid{grid-template-columns:repeat(2,1fr);}
-  .bars-grid{grid-template-columns:1fr;}
-  .role-grid{grid-template-columns:1fr;}
-  .phrase-cn{min-width:80px;}
-  .page{padding:1rem 0.75rem;}
-  .chat-messages{max-height:380px;}
+.phrase-cn{font-size:12px;color:var(--text2);min-width:90px;}
+.phrase-star{font-size:18px;cursor:pointer;color:var(--text3);flex-shrink:0;}
+.phrase-star.on{color:#f5a623;}
+
+/* ── 收藏页 ── */
+.collect-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);}
+.collect-item:last-child{border-bottom:none;}
+.collect-en{font-size:14px;font-weight:500;flex:1;}
+.collect-cn{font-size:12px;color:var(--text2);margin-top:2px;}
+.collect-from{font-size:11px;color:var(--text3);margin-top:2px;}
+.collect-del{font-size:20px;color:var(--text3);cursor:pointer;flex-shrink:0;}
+.collect-del:hover{color:#e24b4a;}
+.add-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.add-row input{flex:1;min-width:100px;padding:8px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:14px;font-family:inherit;outline:none;background:var(--white);}
+.add-row input:focus{border-color:var(--blue);}
+
+/* ── 记录页 ── */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.stat-box{background:var(--white);border-radius:var(--r);padding:12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.stat-n{font-size:26px;font-weight:700;color:var(--blue);}
+.stat-l{font-size:12px;color:var(--text2);margin-top:2px;}
+.record-item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);}
+.record-item:last-child{border-bottom:none;}
+.record-icon{font-size:20px;}
+.record-info{flex:1;}
+.record-name{font-size:14px;font-weight:500;}
+.record-meta{font-size:12px;color:var(--text3);margin-top:2px;}
+.record-score{font-size:20px;font-weight:700;color:var(--blue);}
+.streak-bar{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
+.streak-day{width:28px;height:28px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text3);}
+.streak-day.done{background:var(--blue);color:#fff;}
+
+@media(min-width:600px){
+  .page-body,.chat-msgs,.result-body{max-width:680px;margin-left:auto;margin-right:auto;width:100%;}
+  .scene-grid{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <div class="nav-logo">🗣️ 英语口语陪练</div>
-    <div class="nav-tabs">
-      <div class="nav-tab active" onclick="switchTab('scenes')">场景练习</div>
-      <div class="nav-tab" onclick="switchTab('free')">自由对话</div>
-      <div class="nav-tab" onclick="switchTab('records')">学习记录</div>
-      <div class="nav-tab" onclick="switchTab('vocab')">词句库</div>
-    </div>
-  </div>
-</nav>
 
-<div id="page-scenes" class="page active">
-  <div class="sec-title">选择场景开始练习</div>
-  <div class="sec-sub">全程英文沉浸式对话，AI真实扮演对方角色，练完获得专属评分和建议。</div>
-  <div class="scene-grid" id="scene-grid"></div>
-</div>
-
-<div id="page-role" class="page">
-  <button class="back-btn" onclick="showPage('scenes')">← 返回</button>
-  <div id="role-title" class="sec-title"></div>
-  <div id="role-desc" class="sec-sub"></div>
-  <div style="font-size:14px;color:var(--text2);margin-bottom:8px;">选择你要扮演的角色：</div>
-  <div class="role-grid" id="role-grid"></div>
-</div>
-
-<div id="page-chat" class="page">
-  <button class="back-btn" onclick="exitChat()">← 退出场景</button>
-  <div class="chat-header">
-    <span id="chat-scene-tag" class="tag"></span>
-    <span id="chat-role-tag" class="tag tag-teal"></span>
-    <button class="btn btn-sm" id="tts-btn" onclick="toggleTTS()" style="margin-left:auto;">🔊 朗读开</button>
+<!-- ── 口语练习页 ── -->
+<div id="page-speak" class="page active">
+  <div class="page-header">
+    <div class="page-title">🎯 口语练习</div>
+    <div class="page-sub">选等级和场景，开口说英文！</div>
   </div>
-  <div class="context-bar" id="chat-context"></div>
-  <div class="chat-messages" id="chat-messages"></div>
-  <div class="chat-tools">
-    <button class="btn btn-sm" onclick="openVocabModal()">📝 加入词句库</button>
-  </div>
-  <div class="chat-input-row">
-    <button class="mic-btn" id="chat-mic" onclick="toggleMic('chat')">🎤</button>
-    <textarea id="chat-input" placeholder="点🎤说英文，或直接打字..." rows="1" onkeydown="handleChatKey(event)"></textarea>
-    <button class="btn btn-primary" onclick="sendChat()">发送</button>
-  </div>
-  <div class="chat-tip" id="chat-tip">点🎤开始说话 · 或打字后按 Enter 发送</div>
-</div>
-
-<div id="page-result" class="page">
-  <button class="back-btn" onclick="showPage('scenes')">← 返回场景列表</button>
-  <div class="sec-title">🎉 对话完成！</div>
-  <div class="card" style="margin-top:1rem;">
-    <div style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;">
-      <div>
-        <div class="score-big" id="res-score">--</div>
-        <div class="score-sub">综合评分（满分100）</div>
-      </div>
-      <span id="res-badge" class="tag" style="font-size:13px;padding:4px 12px;"></span>
-    </div>
-    <div class="bars-grid" id="res-bars"></div>
-  </div>
-  <div class="feedback-box" id="res-feedback"><span class="loading-dot">AI正在分析你的表现</span></div>
-  <div class="encourage-box" id="res-encourage"></div>
-  <div style="display:flex;gap:10px;margin-top:1.25rem;flex-wrap:wrap;">
-    <button class="btn btn-primary" onclick="tryAgain()">再练一遍</button>
-    <button class="btn" onclick="showPage('scenes')">换个场景</button>
-    <button class="btn" onclick="switchTab('records')">查看记录</button>
+  <div class="page-body">
+    <div class="level-tabs" id="level-tabs"></div>
+    <div class="level-desc" id="level-desc"></div>
+    <div class="speak-scene-list" id="speak-scene-list"></div>
   </div>
 </div>
 
-<div id="page-free" class="page">
-  <div id="free-setup">
-    <div class="sec-title">自由对话模式</div>
-    <div class="sec-sub">不按剧本，AI真实扮演对方，随机应变。更接近真实口语场景。</div>
+<!-- ── 场景练习页 ── -->
+<div id="page-scene" class="page">
+  <div class="page-header">
+    <div class="page-title">🎭 场景练习</div>
+    <div class="page-sub">按剧本练习，熟悉标准表达</div>
+  </div>
+  <div class="page-body">
+    <div class="scene-grid" id="scene-grid"></div>
+  </div>
+</div>
+
+<!-- ── 词句库页 ── -->
+<div id="page-phrases" class="page">
+  <div class="page-header">
+    <div class="page-title">📚 词句库</div>
+    <div class="page-sub">900串儿日常英语短语</div>
+  </div>
+  <div class="page-body">
+    <div class="topic-scroll" id="topic-scroll"></div>
     <div class="card">
-      <div style="font-size:14px;font-weight:500;margin-bottom:10px;">选择话题：</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;" id="free-topics"></div>
-      <div style="font-size:14px;font-weight:500;margin-bottom:8px;">你的英语水平：</div>
-      <div style="display:flex;gap:8px;margin-bottom:1.25rem;">
-        <button class="free-level active" data-level="beginner" onclick="setLevel(this)">初级</button>
-        <button class="free-level" data-level="intermediate" onclick="setLevel(this)">中级</button>
-        <button class="free-level" data-level="advanced" onclick="setLevel(this)">高级</button>
-      </div>
-      <button class="btn btn-primary" onclick="startFreeChat()">开始自由对话</button>
-    </div>
-  </div>
-  <div id="free-chat" style="display:none;">
-    <button class="back-btn" onclick="endFreeChat()">← 结束对话</button>
-    <div class="chat-header">
-      <span id="free-topic-tag" class="tag tag-purple"></span>
-      <span class="tag tag-amber" id="free-level-tag"></span>
-      <button class="btn btn-sm" id="free-tts-btn" onclick="toggleTTS()" style="margin-left:auto;">🔊 朗读开</button>
-    </div>
-    <div class="context-bar" id="free-context"></div>
-    <div class="chat-messages" id="free-messages" style="max-height:440px;"></div>
-    <div class="chat-tools">
-      <button class="btn btn-sm" onclick="openVocabModal()">📝 加入词句库</button>
-    </div>
-    <div class="chat-input-row">
-      <button class="mic-btn" id="free-mic" onclick="toggleMic('free')">🎤</button>
-      <textarea id="free-input" placeholder="点🎤说英文，或直接打字..." rows="1" onkeydown="handleFreeKey(event)"></textarea>
-      <button class="btn btn-primary" onclick="sendFree()">发送</button>
-    </div>
-    <div class="chat-tip" id="free-tip">点🎤开始说话 · 或打字后按 Enter 发送</div>
-  </div>
-</div>
-
-<div id="page-records" class="page">
-  <div class="sec-title">学习记录</div>
-  <div class="sec-sub">坚持每天练习，进步看得见。</div>
-  <div class="stat-grid" id="stat-grid"></div>
-  <div class="card">
-    <div style="font-size:14px;font-weight:500;margin-bottom:10px;">评分趋势</div>
-    <canvas id="score-chart" height="140"></canvas>
-  </div>
-  <div class="card" style="margin-top:1rem;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <div style="font-size:14px;font-weight:500;">练习明细</div>
-      <button class="btn btn-sm" onclick="clearRecords()" style="color:#e24b4a;border-color:#e24b4a;">清空记录</button>
-    </div>
-    <div id="records-list"></div>
-  </div>
-</div>
-
-<div id="page-vocab" class="page">
-  <div class="sec-title">词句库</div>
-  <div class="sec-sub">浏览900串儿短语，或收藏练习中不会的表达。</div>
-  <div class="vocab-tabs">
-    <div class="vocab-tab active" onclick="switchVocabTab('phrases')">📚 900串儿短语</div>
-    <div class="vocab-tab" onclick="switchVocabTab('saved')">⭐ 我的收藏</div>
-  </div>
-  <div id="vocab-phrases">
-    <div class="phrase-topic-grid" id="phrase-topics"></div>
-    <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-        <div id="phrase-topic-title" style="font-size:15px;font-weight:600;"></div>
-        <div style="font-size:12px;color:var(--text3);" id="phrase-count"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:15px;font-weight:600;" id="topic-title"></div>
+        <div style="font-size:12px;color:var(--text3);" id="topic-count"></div>
       </div>
       <div id="phrase-list"></div>
     </div>
   </div>
-  <div id="vocab-saved" style="display:none;">
+</div>
+
+<!-- ── 我的收藏页 ── -->
+<div id="page-collect" class="page">
+  <div class="page-header">
+    <div class="page-title">⭐ 我的收藏</div>
+    <div class="page-sub">收藏的词句，随时复习</div>
+  </div>
+  <div class="page-body">
     <div class="card">
-      <div class="vocab-add-row">
-        <input id="vocab-en-input" placeholder="英文表达..." />
-        <input id="vocab-cn-input" placeholder="中文备注（可选）" />
-        <button class="btn btn-primary btn-sm" onclick="addVocabManual()">添加</button>
+      <div class="add-row">
+        <input id="add-en" placeholder="英文表达..."/>
+        <input id="add-cn" placeholder="中文备注（可选）"/>
+        <button class="btn btn-blue btn-sm" onclick="addCollectManual()">添加</button>
       </div>
-      <div id="vocab-list"></div>
+      <div id="collect-list"></div>
     </div>
   </div>
 </div>
 
-<div class="modal-mask" id="vocab-modal">
-  <div class="modal">
-    <h3>📝 加入词句库收藏</h3>
-    <input id="modal-en" placeholder="英文表达（必填）" />
-    <input id="modal-cn" placeholder="中文备注（可选）" />
-    <div class="modal-btns">
-      <button class="btn btn-sm" onclick="closeVocabModal()">取消</button>
-      <button class="btn btn-primary btn-sm" onclick="saveVocabModal()">保存</button>
+<!-- ── 学习记录页 ── -->
+<div id="page-records" class="page">
+  <div class="page-header">
+    <div class="page-title">📊 学习记录</div>
+    <div class="page-sub">坚持练习，进步看得见</div>
+  </div>
+  <div class="page-body">
+    <div class="stats-row" id="stats-row"></div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="font-size:14px;font-weight:600;margin-bottom:10px;">最近7天打卡</div>
+      <div class="streak-bar" id="streak-bar"></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:14px;font-weight:600;">练习明细</div>
+        <button class="btn btn-sm btn-outline" onclick="clearRecords()" style="color:#e24b4a;border-color:#e24b4a;">清空</button>
+      </div>
+      <div id="records-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 底部导航 ── -->
+<div class="tab-bar">
+  <div class="tab-item active" onclick="switchTab('speak')"><div class="tab-icon">🎯</div><div class="tab-label">口语练习</div></div>
+  <div class="tab-item" onclick="switchTab('scene')"><div class="tab-icon">🎭</div><div class="tab-label">场景练习</div></div>
+  <div class="tab-item" onclick="switchTab('phrases')"><div class="tab-icon">📚</div><div class="tab-label">词句库</div></div>
+  <div class="tab-item" onclick="switchTab('collect')"><div class="tab-icon">⭐</div><div class="tab-label">我的收藏</div></div>
+  <div class="tab-item" onclick="switchTab('records')"><div class="tab-icon">📊</div><div class="tab-label">记录</div></div>
+</div>
+
+<!-- ── 对话全屏 ── -->
+<div id="chat-screen">
+  <div class="chat-nav">
+    <div class="chat-back" onclick="exitChat()">←</div>
+    <div class="chat-nav-title" id="chat-nav-title"></div>
+    <div class="chat-level-badge" id="chat-level-badge"></div>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="chat-bottom">
+    <div class="chat-status" id="chat-status">准备中...</div>
+    <button class="mic-big disabled" id="mic-big" onclick="handleMicTap()">🎤</button>
+    <div class="chat-hint" id="chat-hint">请稍候</div>
+    <button class="chat-end-btn" onclick="finishChat()">结束对话，查看评分</button>
+  </div>
+</div>
+
+<!-- ── 结果全屏 ── -->
+<div id="result-screen">
+  <div class="result-top">
+    <div class="result-emoji" id="res-emoji">🎉</div>
+    <div class="result-title" id="res-title">对话完成！</div>
+    <div class="result-scene" id="res-scene"></div>
+  </div>
+  <div class="result-body">
+    <div class="card">
+      <div class="score-row">
+        <div class="score-num" id="res-score">--</div>
+        <div class="score-right">
+          <div class="score-lbl">综合评分（满分100）</div>
+          <div class="score-badge" id="res-badge"></div>
+        </div>
+      </div>
+      <div class="bars" id="res-bars"></div>
+    </div>
+    <div class="gold-phrases" id="res-gold" style="display:none;">
+      <div class="gold-title">🌟 今日金句 — 带走这几句话！</div>
+      <div id="gold-list"></div>
+    </div>
+    <div class="feedback-box" id="res-feedback">分析中...</div>
+    <div class="encourage-box" id="res-encourage"></div>
+    <div class="result-btns">
+      <button class="btn btn-blue" onclick="tryAgain()">再练一遍</button>
+      <button class="btn btn-outline" onclick="closeResult()">返回</button>
     </div>
   </div>
 </div>
@@ -313,600 +320,675 @@ const ARK_API_KEY = 'ark-5f63ade4-9f0c-4cf9-acd3-bfde292edac4-c69dd';
 const ARK_ENDPOINT = 'ep-20260625221755-f7mdk';
 const ARK_URL = 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
 
+// ══ 等级配置 ══════════════════════════════════════════════
+const LEVELS = [
+  {id:'sprout', label:'🌱 入门', badge:'入门级',
+   desc:'超短句，语速很慢，AI像好朋友一样耐心等你，只要开口就是胜利！',
+   ttsRate:0.68,
+   instruction:`CRITICAL RULES for beginner level:
+- Use ONLY 3-6 word sentences. Example: "Hi! What do you want?" NOT "Good morning, how may I assist you today?"
+- Use ONLY the most common 500 English words
+- Speak very slowly and clearly
+- Be extremely encouraging and patient
+- If they make mistakes, just reply naturally without pointing it out
+- Ask only ONE simple question per turn
+- Be warm and friendly like a patient friend`},
+  {id:'leaf', label:'🌿 初级', badge:'初级',
+   desc:'短句慢速，日常词汇，AI会给你小提示，建立说话自信。',
+   ttsRate:0.78,
+   instruction:`Rules for elementary level:
+- Use short sentences (6-10 words)
+- Use everyday vocabulary only
+- Speak at a slow, clear pace
+- Give gentle encouragement
+- If they make a clear grammar mistake, naturally model the correct form in your reply
+- Ask one follow-up question per turn
+- Be friendly and supportive`},
+  {id:'tree', label:'🌳 中级', badge:'中级',
+   desc:'正常语速，地道表达，AI会自然纠错，提升表达流畅度。',
+   ttsRate:0.88,
+   instruction:`Rules for intermediate level:
+- Use natural everyday English with moderate complexity
+- Normal speaking pace
+- Naturally incorporate corrections into your replies
+- Use some idiomatic expressions occasionally
+- Ask engaging follow-up questions
+- Be conversational and friendly`},
+  {id:'rocket', label:'🚀 高级', badge:'高级',
+   desc:'地道自然，挑战复杂对话，向真实英语靠拢。',
+   ttsRate:0.95,
+   instruction:`Rules for advanced level:
+- Speak naturally with full vocabulary range
+- Use idioms, phrasal verbs, and natural expressions
+- Normal to slightly fast pace
+- Challenge them with more complex scenarios
+- Occasionally introduce unexpected situations
+- Be professional and engaging`},
+];
+
 // ══ 场景数据 ══════════════════════════════════════════════
 const SCENES = [
-  {id:'sandwich',name:'三明治点餐',emoji:'🥖',cat:'餐饮',catTag:'tag-amber',
-   desc:'在快餐店定制三明治，选面包、配料和酱料。',
-   roles:[{en:'Customer',cn:'顾客'},{en:'Staff',cn:'店员'}],
-   aiRole:'Staff', userRole:'Customer',
-   systemPrompt:`You are a friendly deli staff member. The customer will order a sandwich. Guide them through choosing bread (white, wheat, or Italian herb), protein (turkey, ham, roast beef), toppings (lettuce, tomato, pickles, onions, peppers), and sauce (honey mustard, mayo, ranch). Be natural and friendly. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'supermarket',name:'超市购物',emoji:'🛒',cat:'购物',catTag:'tag-teal',
-   desc:'找商品、咨询店员，结账付款。',
-   roles:[{en:'Shopper',cn:'顾客'},{en:'Staff',cn:'店员'}],
-   aiRole:'Staff', userRole:'Shopper',
-   systemPrompt:`You are a helpful supermarket staff member. Help the customer find items, answer questions about products and prices, and assist with checkout. Be natural and friendly. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'takeout',name:'外带点餐',emoji:'🍱',cat:'餐饮',catTag:'tag-amber',
-   desc:'在餐厅点外卖，确认口味和付款方式。',
-   roles:[{en:'Customer',cn:'顾客'},{en:'Staff',cn:'店员'}],
-   aiRole:'Staff', userRole:'Customer',
-   systemPrompt:`You are a friendly restaurant staff member taking a takeout order. Help the customer order food, confirm preferences, and process payment. Be natural. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'hotel',name:'酒店入住',emoji:'🏨',cat:'出行',catTag:'tag-blue',
-   desc:'办理入住，询问设施，提出额外需求。',
-   roles:[{en:'Guest',cn:'住客'},{en:'Receptionist',cn:'前台'}],
-   aiRole:'Receptionist', userRole:'Guest',
-   systemPrompt:`You are a professional hotel receptionist at Grand Hotel. Help the guest check in, answer questions about facilities, and handle requests. Be warm and professional. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'airport',name:'机场值机',emoji:'✈️',cat:'出行',catTag:'tag-blue',
-   desc:'办理登机手续，托运行李，询问登机口。',
-   roles:[{en:'Passenger',cn:'旅客'},{en:'Agent',cn:'值机员'}],
-   aiRole:'Agent', userRole:'Passenger',
-   systemPrompt:`You are an airport check-in agent. Help the passenger check in for their flight, handle baggage, assign seats, and provide gate information. Be efficient and friendly. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'lost_luggage',name:'行李丢失',emoji:'🧳',cat:'出行',catTag:'tag-coral',
-   desc:'航班落地后行李未到，在服务台报失并安排处理。',
-   roles:[{en:'Passenger',cn:'旅客'},{en:'Agent',cn:'服务员'}],
-   aiRole:'Agent', userRole:'Passenger',
-   systemPrompt:`You are a lost luggage service agent at an airport. Help the passenger report and locate their missing luggage, fill out forms, and arrange delivery. Be empathetic and helpful. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'passport',name:'入境检查',emoji:'🛂',cat:'出行',catTag:'tag-purple',
-   desc:'通过国际边境护照检查，回答移民官的问题。',
-   roles:[{en:'Traveler',cn:'旅客'},{en:'Officer',cn:'移民官'}],
-   aiRole:'Officer', userRole:'Traveler',
-   systemPrompt:`You are an immigration officer at passport control. Ask the traveler standard questions about purpose of visit, duration, accommodation, and return ticket. Be professional but not unfriendly. Speak only English. Keep responses short (1-2 sentences).`},
-  {id:'restaurant',name:'餐厅用餐',emoji:'🍽️',cat:'餐饮',catTag:'tag-amber',
-   desc:'点餐、询问菜单、提出特殊需求，完整用餐流程。',
-   roles:[{en:'Diner',cn:'食客'},{en:'Waiter',cn:'服务员'}],
-   aiRole:'Waiter', userRole:'Diner',
-   systemPrompt:`You are a friendly restaurant waiter. Take the diner's drink and food orders, answer questions about the menu, handle special requests, and provide great service. Be warm and attentive. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'currency',name:'货币兑换',emoji:'💱',cat:'金融',catTag:'tag-teal',
-   desc:'询问汇率、手续费，完成一笔货币兑换交易。',
-   roles:[{en:'Customer',cn:'顾客'},{en:'Teller',cn:'柜员'}],
-   aiRole:'Teller', userRole:'Customer',
-   systemPrompt:`You are a currency exchange teller. Help the customer exchange yuan for euros or other currencies. Explain today's rates and fees, calculate amounts, and process the transaction. Be professional. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'doctor',name:'看医生',emoji:'🏥',cat:'医疗',catTag:'tag-coral',
-   desc:'描述症状，理解医生的诊断和建议。',
-   roles:[{en:'Patient',cn:'患者'},{en:'Doctor',cn:'医生'}],
-   aiRole:'Doctor', userRole:'Patient',
-   systemPrompt:`You are a caring doctor at a clinic. Ask the patient about their symptoms, duration, and medical history. Provide a diagnosis and treatment recommendations. Be warm and professional. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'phone',name:'电话预约',emoji:'📞',cat:'日常',catTag:'tag-purple',
-   desc:'打电话给发廊预约理发，练习电话英语。',
-   roles:[{en:'Caller',cn:'来电者'},{en:'Receptionist',cn:'前台'}],
-   aiRole:'Receptionist', userRole:'Caller',
-   systemPrompt:`You are a hair salon receptionist answering the phone. Help the caller book a haircut appointment, check availability, confirm their name and number, and ask about their preferences. Be friendly and professional. Speak only English. Keep responses short (1-3 sentences).`},
-  {id:'complaint',name:'客服投诉',emoji:'📢',cat:'日常',catTag:'tag-coral',
-   desc:'收到损坏商品后礼貌投诉，争取退换货。',
-   roles:[{en:'Customer',cn:'顾客'},{en:'Manager',cn:'客服'}],
-   aiRole:'Manager', userRole:'Customer',
-   systemPrompt:`You are a customer service manager. Handle the customer's complaint about a damaged product. Apologize sincerely, ask for details, and offer solutions like refund or replacement. Be empathetic and professional. Speak only English. Keep responses short (1-3 sentences).`},
+  {id:'sandwich', name:'三明治点餐', icon:'🥖', cat:'食', catClass:'tag-food', desc:'在快餐店定制三明治', aiRole:'Staff',
+   basePrompt:`You are a friendly deli counter staff. The customer orders a sandwich. Guide them: bread (white/wheat/Italian herb), protein (turkey/ham/roast beef), toppings, sauce, then payment. Be warm. English only.`},
+  {id:'hotel', name:'酒店入住', icon:'🏨', cat:'出行', catClass:'tag-travel', desc:'办理入住，询问设施', aiRole:'Receptionist',
+   basePrompt:`You are a hotel receptionist at Grand Hotel. Help guest check in: ask name & ID, assign room 205, mention breakfast 7-10am, handle requests. Be professional. English only.`},
+  {id:'airport', name:'机场值机', icon:'✈️', cat:'出行', catClass:'tag-travel', desc:'办理登机，托运行李', aiRole:'Agent',
+   basePrompt:`You are an airport check-in agent. Help passenger: ask for passport, handle baggage (weight limit 23kg), choose window or aisle seat, give gate info. English only.`},
+  {id:'restaurant', name:'餐厅用餐', icon:'🍽️', cat:'食', catClass:'tag-food', desc:'点餐、询问菜单、结账', aiRole:'Waiter',
+   basePrompt:`You are a friendly restaurant waiter. Take drink order first, then food. Menu includes pasta, steak, salad, soup. Handle questions, bring check when asked. English only.`},
+  {id:'doctor', name:'看医生', icon:'🏥', cat:'医疗', catClass:'tag-health', desc:'描述症状，获得建议', aiRole:'Doctor',
+   basePrompt:`You are a caring doctor. Ask about symptoms, duration, current medication. Give simple diagnosis (cold, infection, etc.) and advice (rest, fluids, medicine). English only.`},
+  {id:'shopping', name:'商场购物', icon:'🛍️', cat:'购物', catClass:'tag-daily', desc:'找商品、询价、结账', aiRole:'Staff',
+   basePrompt:`You are a helpful shop assistant in a clothing store. Help find items, suggest sizes, check stock, handle fitting room, process payment. English only.`},
+  {id:'cafe', name:'咖啡店点单', icon:'☕', cat:'食', catClass:'tag-food', desc:'点咖啡、选大小和配料', aiRole:'Barista',
+   basePrompt:`You are a cheerful barista. Take order: drink type, size (small/medium/large), milk (whole/oat/soy/skim), extras (sugar/syrup), name for cup, payment. English only.`},
+  {id:'directions', name:'问路', icon:'🗺️', cat:'日常', catClass:'tag-daily', desc:'在陌生地方询问路线', aiRole:'Local',
+   basePrompt:`You are a friendly local. The traveler asks for directions to places (subway, restaurant, park, etc.). Give clear simple directions with landmarks. English only.`},
+  {id:'currency', name:'货币兑换', icon:'💱', cat:'金融', catClass:'tag-finance', desc:'询问汇率，完成兑换', aiRole:'Teller',
+   basePrompt:`You are a currency exchange teller. Help exchange yuan for euros/dollars: explain today's rate (1 USD=7.2 CNY or 1 EUR=7.8 CNY), calculate amount after 2% fee, process transaction. English only.`},
+  {id:'complaint', name:'投诉处理', icon:'📢', cat:'日常', catClass:'tag-daily', desc:'礼貌投诉，争取解决', aiRole:'Manager',
+   basePrompt:`You are a customer service manager. Customer has complaint about damaged/wrong product. Listen, apologize sincerely, get order details, offer refund or replacement. English only.`},
+  {id:'pharmacy', name:'药店买药', icon:'💊', cat:'医疗', catClass:'tag-health', desc:'描述症状，购买药品', aiRole:'Pharmacist',
+   basePrompt:`You are a helpful pharmacist. Customer describes symptoms. Ask about allergies and existing conditions. Recommend appropriate OTC medicine with dosage instructions. English only.`},
+  {id:'lost_luggage', name:'行李丢失', icon:'🧳', cat:'出行', catClass:'tag-travel', desc:'报告行李丢失，安排处理', aiRole:'Agent',
+   basePrompt:`You are a lost luggage service agent. Help passenger report missing luggage: ask flight number, describe luggage, fill report, arrange delivery to address. Be empathetic. English only.`},
 ];
 
-const FREE_TOPICS = [
-  {id:'shopping',label:'🛍️ 购物',prompt:'Talk about shopping experiences, favorite stores, recent purchases, or fashion preferences.'},
-  {id:'travel',label:'✈️ 旅行',prompt:'Discuss travel destinations, past trips, travel tips, or dream vacations.'},
-  {id:'food',label:'🍜 美食',prompt:'Chat about favorite foods, restaurants, cooking, or food cultures around the world.'},
-  {id:'work',label:'💼 职场',prompt:'Discuss work life, career goals, workplace situations, or professional development.'},
-  {id:'daily',label:'☀️ 日常',prompt:'Have casual daily life conversation about hobbies, weekend plans, family, or current events.'},
-  {id:'health',label:'🏃 健康',prompt:'Talk about exercise routines, healthy habits, sports, or wellness tips.'},
-];
-
-const PHRASE_TOPICS=[
-  {id:1,name:"挂在嘴边",icon:"💬",phrases:[
-    {en:"Thank you.",cn:"谢谢"},{en:"No problem.",cn:"没事儿"},{en:"Of course.",cn:"应该的"},
-    {en:"You are welcome.",cn:"乐意效劳"},{en:"Sorry.",cn:"抱歉"},{en:"Excuse me.",cn:"不好意思"},
-    {en:"Hi, how are you?",cn:"你好吗？"},{en:"I'm good, thank you!",cn:"我很好，谢谢！"},
-    {en:"Sounds good.",cn:"好的，听起来不错"},{en:"No worries.",cn:"没关系"},
+// ══ 词句库数据 ══════════════════════════════════════════════
+const PHRASE_TOPICS = [
+  {name:'💬 挂在嘴边', phrases:[
+    {en:'Thank you so much!',cn:'非常感谢！'},{en:'No problem at all.',cn:'完全没问题'},{en:'Of course!',cn:'当然！'},
+    {en:'You are welcome.',cn:'不客气'},{en:'Excuse me, sorry.',cn:'打扰一下，抱歉'},{en:'Sounds good!',cn:'听起来不错！'},
+    {en:'No worries.',cn:'没关系'},{en:'That works for me.',cn:'我可以接受'},
   ]},
-  {id:2,name:"爸妈对孩子",icon:"👨‍👩‍👧",phrases:[
-    {en:"Time to wake up!",cn:"该起床了！"},{en:"Good morning!",cn:"早安"},
-    {en:"Don't be picky about your food.",cn:"不要挑食"},{en:"Hurry up, you'll be late!",cn:"快点，要迟到了！"},
-    {en:"Have a nice day.",cn:"祝你有个美好的一天"},{en:"How was school today?",cn:"今天学校如何？"},
-    {en:"Do you have any homework?",cn:"你有作业吗？"},{en:"Good job!",cn:"你做得很好！"},
-    {en:"It's time to go to bed.",cn:"该睡觉了"},{en:"Good night! Sweet dreams!",cn:"晚安！祝你做个好梦！"},
+  {name:'⏰ 起床日常', phrases:[
+    {en:'set my alarm for 6:30',cn:'把闹钟定在6:30'},{en:'hit the snooze button',cn:"按'小睡'按钮"},
+    {en:'slept like a baby',cn:'睡得太香了'},{en:'a night owl',cn:'夜猫子'},
+    {en:'a morning person',cn:'早起有精神的人'},{en:'The alarm went off.',cn:'闹钟响了'},
+    {en:"I'm still sleepy.",cn:'我还困着呢'},{en:'Wake up, sleepyhead!',cn:'醒醒，懒虫！'},
   ]},
-  {id:3,name:"起床",icon:"⏰",phrases:[
-    {en:"set my alarm to go off at 6:20",cn:"把闹钟定在6:20"},{en:"The alarm clock went off.",cn:"闹钟响了"},
-    {en:"Wake up, sleepyhead!",cn:"醒醒，懒虫！"},{en:"I'm still sleepy.",cn:"我还困着呢"},
-    {en:"slept like a baby",cn:"睡得太香了"},{en:"hit the snooze button",cn:"按'小睡'按钮"},
-    {en:"catch five more minutes to sleep",cn:"赖床多睡五分钟"},{en:"a morning person",cn:"早起有精神的人"},
-    {en:"a night owl",cn:"夜猫子"},
+  {name:'🪥 洗漱护肤', phrases:[
+    {en:'oral hygiene',cn:'口腔卫生'},{en:'remove bad breath',cn:'消除口气'},
+    {en:'use face cleanser',cn:'用洗面奶'},{en:'apply moisturizer',cn:'涂保湿霜'},
+    {en:'anti-wrinkle cream',cn:'抗皱霜'},{en:'use a toner',cn:'用爽肤水'},
+    {en:'apply serum',cn:'涂精华液'},{en:'check the water temperature',cn:'试试水温'},
   ]},
-  {id:4,name:"刷牙洗脸",icon:"🪥",phrases:[
-    {en:"oral hygiene",cn:"口腔卫生"},{en:"remove bad breath",cn:"消除口气"},
-    {en:"mouthwash",cn:"漱口水"},{en:"blackheads, acnes, and pimples",cn:"黑头、粉刺和痘痘"},
-    {en:"use face cleanser",cn:"用洗面奶"},{en:"apply my serum",cn:"涂抹精华液"},
-    {en:"anti-wrinkle cream",cn:"抗皱霜"},{en:"use a toner",cn:"用爽肤水"},
+  {name:'👗 穿衣打扮', phrases:[
+    {en:'look in my closet',cn:'在衣柜里找'},{en:'Do these match?',cn:'这搭配吗？'},
+    {en:'wear a suit to work',cn:'穿套装上班'},{en:'a pair of heels',cn:'一双高跟鞋'},
+    {en:'My hair is a mess.',cn:'我的头发乱糟糟的'},{en:'I want a ponytail.',cn:'我想扎马尾'},
+    {en:'polish my shoes',cn:'擦皮鞋'},{en:'color coordinating',cn:'搭配颜色'},
   ]},
-  {id:5,name:"洗澡",icon:"🚿",phrases:[
-    {en:"pull the shower curtain aside",cn:"拉开浴帘"},{en:"lather up with soap",cn:"涂抹肥皂"},
-    {en:"shampoo and conditioner",cn:"洗发水和护发素"},{en:"wash my hair every other day",cn:"隔天洗一次头"},
-    {en:"check the water temperature",cn:"试试水温"},{en:"It feels just right.",cn:"水温刚好"},
-    {en:"I smell sweet.",cn:"我闻起来香喷喷的"},
+  {name:'🏢 上班通勤', phrases:[
+    {en:'I was ready to go.',cn:'我准备走了'},{en:"I'm usually running late.",cn:'我经常迟到'},
+    {en:'swipe my subway card',cn:'刷地铁卡'},{en:'wait on the platform',cn:'在站台等'},
+    {en:'hold onto a handrail',cn:'抓着扶手'},{en:'a long commute',cn:'通勤路挺远的'},
+    {en:'grab my thermos bottle',cn:'拿上保温杯'},{en:'check myself in the mirror',cn:'照照镜子'},
   ]},
-  {id:6,name:"穿衣打扮",icon:"👗",phrases:[
-    {en:"look in my closet",cn:"在衣柜里找"},{en:"terrible at color coordinating",cn:"特别不会穿搭配色"},
-    {en:"wear a suit to work",cn:"穿套装上班"},{en:"Do my trousers go with this shirt?",cn:"这裤子跟衬衫配吗？"},
-    {en:"a pair of heels",cn:"一双高跟鞋"},{en:"My hair is a mess.",cn:"我的头发乱糟糟的"},
-    {en:"I want a ponytail.",cn:"我想扎个马尾辫"},
+  {name:'💼 办公室', phrases:[
+    {en:'I have a meeting soon.',cn:'我马上要开会'},{en:'go on a business trip',cn:'出差'},
+    {en:'work overtime',cn:'加班'},{en:'a paid vacation',cn:'带薪假期'},
+    {en:'quit the job',cn:'辞职'},{en:"I was chewed out by my boss.",cn:'我被老板骂了'},
+    {en:'deadline is tomorrow',cn:'明天截止'},{en:'team building activity',cn:'团建活动'},
   ]},
-  {id:7,name:"化妆",icon:"💄",phrases:[
-    {en:"wear a lot of make-up",cn:"化浓妆"},{en:"put on a little blush",cn:"涂点腮红"},
-    {en:"a light colored lipstick",cn:"浅色口红"},{en:"mascara and eye shadow",cn:"睫毛膏和眼影"},
-    {en:"hide under-eye circles",cn:"遮盖眼袋"},{en:"apply foundation",cn:"打粉底"},
-    {en:"eyebrow pencil",cn:"眉笔"},{en:"false eyelashes",cn:"假睫毛"},
+  {name:'🍱 吃饭点餐', phrases:[
+    {en:'order takeout online',cn:'在线订外卖'},{en:'split the check',cn:'AA制付账'},
+    {en:'ask for a doggy bag',cn:'要个打包袋'},{en:'Can I see the menu?',cn:'能看看菜单吗？'},
+    {en:"What's today's special?",cn:'今天有什么特色菜？'},{en:'Well done, please.',cn:'全熟，谢谢'},
+    {en:'I have a food allergy.',cn:'我有食物过敏'},{en:'The bill, please.',cn:'买单，谢谢'},
   ]},
-  {id:8,name:"出门上班",icon:"🏢",phrases:[
-    {en:"I was ready to go.",cn:"我准备走了"},{en:"grab my thermos bottle",cn:"拿上保温杯"},
-    {en:"check myself in the mirror",cn:"照照镜子看看自己"},{en:"I'm usually running late.",cn:"我经常迟到"},
-    {en:"swipe my subway smart card",cn:"刷我的地铁卡"},{en:"wait on the platform",cn:"在站台等着"},
-    {en:"hold onto a handrail",cn:"抓着扶手"},{en:"a long commute",cn:"上下班路挺远的"},
+  {name:'🧹 家务收拾', phrases:[
+    {en:'do the dishes',cn:'洗碗'},{en:'vacuum the rug',cn:'给地毯吸尘'},
+    {en:'take out the garbage',cn:'倒垃圾'},{en:'sweep the floor',cn:'扫地'},
+    {en:'wipe the table',cn:'擦桌子'},{en:'do the laundry',cn:'洗衣服'},
+    {en:'sort the recycling',cn:'分类回收'},{en:'mop the floor',cn:'拖地'},
   ]},
-  {id:9,name:"办公室",icon:"💼",phrases:[
-    {en:"get to the office",cn:"到了办公室"},{en:"sit down at my desk",cn:"坐在办公桌前"},
-    {en:"I have a meeting in 5 minutes.",cn:"我5分钟后要开会"},{en:"go on a business trip",cn:"出差"},
-    {en:"work overtime",cn:"加班"},{en:"I was chewed out by my boss.",cn:"我被老板骂了一顿"},
-    {en:"quit the job",cn:"辞职"},{en:"a paid vacation",cn:"带薪假期"},
+  {name:'🤒 身体健康', phrases:[
+    {en:'My head is killing me.',cn:'我头疼得厉害'},{en:'have a sore throat',cn:'喉咙疼'},
+    {en:'feel exhausted',cn:'觉得精疲力竭'},{en:'caught a cold',cn:'感冒了'},
+    {en:'take some medicine',cn:'吃点药'},{en:'three times a day',cn:'一天三次'},
+    {en:'see a doctor',cn:'去看医生'},{en:'get some rest',cn:'好好休息'},
   ]},
-  {id:10,name:"午餐",icon:"🍱",phrases:[
-    {en:"bring my lunch with me to work",cn:"带饭上班"},{en:"order takeout foods online",cn:"在网上订外卖"},
-    {en:"split the check",cn:"AA付账"},{en:"I have no appetite for anything.",cn:"没什么胃口"},
-    {en:"ask for a doggy bag",cn:"要一个打包袋"},{en:"feel sleepy after lunch",cn:"吃饱饭就觉得很困"},
+  {name:'✈️ 旅行出行', phrases:[
+    {en:'book a round trip',cn:'订往返票'},{en:'check in online',cn:'网上值机'},
+    {en:'excess baggage fee',cn:'超重行李费'},{en:'window or aisle seat?',cn:'靠窗还是靠走道？'},
+    {en:'boarding pass',cn:'登机牌'},{en:'customs declaration',cn:'海关申报'},
+    {en:'jet lag',cn:'时差反应'},{en:'travel insurance',cn:'旅行保险'},
   ]},
-  {id:11,name:"做饭",icon:"🍳",phrases:[
-    {en:"chop onions, gingers and garlics",cn:"切葱姜蒜"},{en:"heat the oil",cn:"加热油"},
-    {en:"stir fry",cn:"煸炒"},{en:"add salt to taste",cn:"加点盐入味"},
-    {en:"The chicken is cooked through.",cn:"鸡熟透了"},{en:"set the table",cn:"摆好桌子"},
+  {name:'🏨 酒店住宿', phrases:[
+    {en:'check in / check out',cn:'入住/退房'},{en:'room service',cn:'客房服务'},
+    {en:'wake-up call at 7am',cn:'早上7点叫醒服务'},{en:'extra pillow please',cn:'请给我加个枕头'},
+    {en:"the WiFi password?",cn:'WiFi密码是多少？'},{en:'late checkout possible?',cn:'可以晚点退房吗？'},
+    {en:'king or twin beds?',cn:'大床还是双床？'},{en:'non-smoking room',cn:'禁烟房间'},
   ]},
-  {id:12,name:"打扫卫生",icon:"🧹",phrases:[
-    {en:"do the dishes",cn:"洗碗"},{en:"vacuum the rug",cn:"给地毯吸尘"},
-    {en:"scrub the sink",cn:"洗刷水池"},{en:"take the kitchen garbage out",cn:"把厨余垃圾拿出去"},
-    {en:"sweep the floor",cn:"扫地"},{en:"wipe the floor",cn:"擦地板"},
-  ]},
-  {id:13,name:"晚间休闲",icon:"📺",phrases:[
-    {en:"sit down on the couch to chill out",cn:"坐在沙发上歇会儿"},{en:"watch reality shows",cn:"看真人秀"},
-    {en:"turn the sound down",cn:"把音量放低"},{en:"read a bedtime story",cn:"读个睡前故事"},
-    {en:"put a glass of water next to the bed",cn:"放一杯水在床头"},{en:"nod off right away",cn:"很快就打瞌睡了"},
-  ]},
-  {id:14,name:"生病了",icon:"🤒",phrases:[
-    {en:"My head is killing me.",cn:"我头疼得厉害"},{en:"have a sore throat",cn:"喉咙疼"},
-    {en:"feel exhausted",cn:"觉得精疲力竭"},{en:"caught a cold",cn:"感冒了"},
-    {en:"Let me take your temperature.",cn:"我来给你量下体温吧"},{en:"go to the pharmacy",cn:"去药房"},
-    {en:"three times a day",cn:"一天三次"},{en:"two pills at a time",cn:"一次两粒"},
-  ]},
-  {id:15,name:"微信支付",icon:"💚",phrases:[
-    {en:"scan QR code",cn:"扫二维码"},{en:"post my moments",cn:"发个朋友圈"},
-    {en:"send a voice message",cn:"发送语音消息"},{en:"send lucky money",cn:"发红包"},
-    {en:"grab lucky money",cn:"抢红包"},{en:"sweep the code to make the payment",cn:"扫码支付"},
-    {en:"no need to carry a purse",cn:"不用带钱包"},{en:"reach your destination",cn:"到达目的地"},
+  {name:'💚 微信支付', phrases:[
+    {en:'scan the QR code',cn:'扫二维码'},{en:'send a red envelope',cn:'发红包'},
+    {en:'post to Moments',cn:'发朋友圈'},{en:'transfer money',cn:'转账'},
+    {en:'go Dutch / split the bill',cn:'AA制'},  {en:'tap to pay',cn:'点击付款'},
+    {en:'no cash needed',cn:'不需要现金'},{en:'digital wallet',cn:'电子钱包'},
   ]},
 ];
 
 // ══ 状态 ══════════════════════════════════════════════════
-let curScene=null, userRoleEn=null, userRoleCn=null;
-let chatHistory=[], userLines=[], aiWaiting=false;
-let freeTopic='shopping', freeLevel='beginner', freeChatHistory=[];
-let records=JSON.parse(localStorage.getItem('eq_records')||'[]');
-let vocab=JSON.parse(localStorage.getItem('eq_vocab')||'[]');
-let curPhraseIdx=0;
-let ttsEnabled=true;
-let recognition=null, isListening=false, micTarget=null;
+let curLevel = LEVELS[0];
+let curScene = null;
+let curPhraseIdx = 0;
+let chatHistory = [];
+let userLines = [];
+let aiWaiting = false;
+let recognition = null;
+let isListening = false;
+let records = JSON.parse(localStorage.getItem('eq_records')||'[]');
+let collected = JSON.parse(localStorage.getItem('eq_collected')||'[]');
 
 // ══ 导航 ══════════════════════════════════════════════════
-function switchTab(tab){
-  document.querySelectorAll('.nav-tab').forEach((t,i)=>{
-    t.classList.toggle('active',['scenes','free','records','vocab'][i]===tab);
-  });
-  if(tab==='records'){showPage('records');renderRecords();return;}
-  if(tab==='vocab'){showPage('vocab');renderVocabPage();return;}
-  if(tab==='free'){showPage('free');renderFreeSetup();return;}
-  showPage('scenes');
-}
-function showPage(id){
+function switchTab(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+id)?.classList.add('active');
+  document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const idx = ['speak','scene','phrases','collect','records'].indexOf(id);
+  document.querySelectorAll('.tab-item')[idx].classList.add('active');
+  if(id==='phrases') renderPhrases();
+  if(id==='collect') renderCollect();
+  if(id==='records') renderRecords();
 }
 
-// ══ 场景 ══════════════════════════════════════════════════
-function renderScenes(){
-  document.getElementById('scene-grid').innerHTML=SCENES.map(s=>`
-    <div class="scene-card" onclick="selectScene('${s.id}')">
-      <div class="scene-emoji">${s.emoji}</div>
-      <div class="scene-name">${s.name}</div>
-      <span class="tag ${s.catTag}" style="margin-bottom:4px;">${s.cat}</span>
-      <div class="scene-desc">${s.desc}</div>
+// ══ 口语练习页 ══════════════════════════════════════════════
+function renderSpeakPage(){
+  // 等级标签
+  document.getElementById('level-tabs').innerHTML = LEVELS.map((l,i)=>`
+    <button class="level-tab${l.id===curLevel.id?' active':''}" onclick="selectLevel(${i})">${l.label}</button>`).join('');
+  document.getElementById('level-desc').textContent = curLevel.desc;
+  // 场景列表
+  document.getElementById('speak-scene-list').innerHTML = SCENES.map(s=>`
+    <div class="speak-scene-card" onclick="startChat('${s.id}')">
+      <div class="speak-scene-icon">${s.icon}</div>
+      <div class="speak-scene-info">
+        <div class="speak-scene-name">${s.name}</div>
+        <div class="speak-scene-desc">${s.desc}</div>
+        <span class="tag ${s.catClass}" style="margin-top:4px;">${s.cat}</span>
+      </div>
+      <div class="speak-scene-arrow">›</div>
     </div>`).join('');
 }
 
-function selectScene(id){
-  curScene=SCENES.find(s=>s.id===id);
-  document.getElementById('role-title').textContent=curScene.emoji+' '+curScene.name;
-  document.getElementById('role-desc').textContent=curScene.desc;
-  document.getElementById('role-grid').innerHTML=curScene.roles.map(r=>`
-    <div class="role-card" onclick="startChat('${r.en}','${r.cn}')">
-      <div class="role-cn">${r.cn}</div>
-      <div class="role-en">${r.en}</div>
-      <div class="role-hint">扮演${r.cn}角色</div>
-    </div>`).join('');
-  showPage('role');
+function selectLevel(idx){
+  curLevel = LEVELS[idx];
+  renderSpeakPage();
 }
 
-// ══ AI对话（真实AI，非剧本）══════════════════════════════
-async function startChat(roleEn, roleCn){
-  userRoleEn=roleEn; userRoleCn=roleCn;
-  chatHistory=[]; userLines=[];
+// ══ 开始对话 ══════════════════════════════════════════════
+async function startChat(sceneId){
+  curScene = SCENES.find(s=>s.id===sceneId);
+  chatHistory = []; userLines = [];
+  document.getElementById('chat-nav-title').textContent = curScene.icon+' '+curScene.name;
+  document.getElementById('chat-level-badge').textContent = curLevel.badge;
+  document.getElementById('chat-msgs').innerHTML = '';
+  document.getElementById('chat-screen').classList.add('open');
+  setMic('disabled','准备中...','请稍候');
+  addBubble('sys','对话开始！听AI说完后，点🎤说英文回应 😊');
+  await aiTurn(null, true);
+}
 
-  document.getElementById('chat-scene-tag').textContent=curScene.emoji+' '+curScene.name;
-  document.getElementById('chat-scene-tag').className='tag '+curScene.catTag;
-  document.getElementById('chat-role-tag').textContent='你：'+roleCn+' ('+roleEn+')';
-  document.getElementById('chat-context').textContent='📍 场景：'+curScene.desc+' 你扮演：'+roleCn;
-  document.getElementById('chat-messages').innerHTML='';
-  document.getElementById('chat-input').value='';
-  document.getElementById('chat-input').disabled=false;
-  showPage('chat');
-
-  addMsg('system','对话开始！全程请用英文。点🎤说话，AI会自动回应。加油！💪');
-
-  // AI先开口
-  const aiRoleName = curScene.aiRole;
-  const openingPrompt = curScene.systemPrompt + `\n\nStart the conversation naturally as the ${aiRoleName}. Give a warm, brief opening line (1 sentence).`;
-  const typingEl = addMsg('typing', aiRoleName+': ...');
+async function aiTurn(userText, isOpening){
+  aiWaiting = true;
+  if(userText) chatHistory.push({role:'user', content:userText});
+  const systemPrompt = curScene.basePrompt + '\n\n' + curLevel.instruction
+    + (isOpening ? `\n\nStart the conversation now as the ${curScene.aiRole}. Give ONE short warm greeting sentence only.` : '');
+  setMic('disabled','AI说话中...','请听，说完再轮到你 🎧');
   try{
-    const reply = await callArk(openingPrompt, []);
-    typingEl.className='bubble ai';
-    typingEl.textContent=aiRoleName+': '+reply;
-    speak(reply);
+    const msgs = isOpening ? [] : chatHistory;
+    const reply = await callArk(systemPrompt, msgs);
     chatHistory.push({role:'assistant', content:reply});
+    addBubble('ai', curScene.aiRole+': '+reply);
+    await speakText(reply);
   }catch(e){
-    typingEl.className='bubble ai';
-    typingEl.textContent=aiRoleName+': Hello! How can I help you today?';
-    speak('Hello! How can I help you today?');
-    chatHistory.push({role:'assistant', content:'Hello! How can I help you today?'});
+    addBubble('err','⚠️ 网络连接失败，请检查网络后重试');
   }
+  aiWaiting = false;
+  if(userLines.length >= 10){
+    setMic('disabled','对话完成！','');
+    addBubble('sys','🎉 太棒了！完成了10轮对话，正在生成评分...');
+    setTimeout(()=>finishChat(), 1200);
+    return;
+  }
+  setMic('ready','轮到你说了！','点🎤 开始说英文 👇');
 }
 
-function handleChatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
-
-async function sendChat(){
-  if(aiWaiting) return;
-  const inp=document.getElementById('chat-input');
-  const text=inp.value.trim(); if(!text) return;
-  inp.value='';
-  addMsg('user', text);
-  userLines.push(text);
-  chatHistory.push({role:'user', content:text});
-
-  aiWaiting=true;
-  const aiRoleName=curScene.aiRole;
-  const typingEl=addMsg('typing', aiRoleName+': ...');
-  try{
-    const reply=await callArk(curScene.systemPrompt, chatHistory);
-    typingEl.className='bubble ai';
-    typingEl.textContent=aiRoleName+': '+reply;
-    speak(reply);
-    chatHistory.push({role:'assistant', content:reply});
-    // 对话超过8轮自动结束
-    if(userLines.length>=8){
-      setTimeout(()=>{
-        addMsg('system','🎉 对话完成！正在生成你的专属反馈...');
-        document.getElementById('chat-input').disabled=true;
-        setTimeout(()=>showResult(),800);
-      },1500);
-    }
-  }catch(e){
-    typingEl.className='bubble hint';
-    typingEl.textContent='⚠️ 网络连接失败，请检查网络后重试。';
-  }
-  aiWaiting=false;
+// ══ 麦克风 ════════════════════════════════════════════════
+function handleMicTap(){
+  const btn = document.getElementById('mic-big');
+  if(btn.classList.contains('disabled')) return;
+  if(isListening){ stopListen(); return; }
+  startListen();
 }
 
-function exitChat(){
+function startListen(){
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ alert('请使用Chrome浏览器以支持语音功能。'); return; }
   window.speechSynthesis?.cancel();
-  showPage('scenes');
-}
-
-// ══ 结果评分 ══════════════════════════════════════════════
-async function showResult(){
-  showPage('result');
-  document.getElementById('res-score').textContent='--';
-  document.getElementById('res-badge').textContent='';
-  document.getElementById('res-bars').innerHTML='';
-  document.getElementById('res-feedback').innerHTML='<span class="loading-dot">AI正在分析你的表现</span>';
-  document.getElementById('res-encourage').textContent='';
-
-  const transcript=userLines.map((l,i)=>`Turn ${i+1}: "${l}"`).join('\n');
-  const evalPrompt=`You are an English speaking coach evaluating a Chinese learner's performance in a "${curScene.name}" conversation where they played the role of "${userRoleEn}".
-
-Their responses:
-${transcript}
-
-Return ONLY valid JSON (no markdown, no explanation):
-{"overall":85,"fluency":80,"vocabulary":85,"naturalness":80,"confidence":90,"feedback":"3-4 sentences of warm specific feedback IN CHINESE pointing out strengths and areas to improve","encouragement":"1 uplifting sentence IN CHINESE to keep them motivated","badge":"继续加油！","suggestions":["specific suggestion 1 in Chinese","specific suggestion 2 in Chinese"]}
-
-Badge options: "非常出色！" "表现很棒！" "进步明显！" "继续加油！" "初战告捷！"`;
-
-  try{
-    const raw=await callArk(evalPrompt,[{role:'user',content:'Please evaluate my performance.'}]);
-    const res=JSON.parse(raw.replace(/```json|```/g,'').trim());
-    document.getElementById('res-score').textContent=res.overall;
-    const badge=document.getElementById('res-badge');
-    badge.textContent=res.badge; badge.style.cssText='font-size:13px;padding:4px 12px;';
-    badge.className='tag '+(res.overall>=85?'tag-teal':res.overall>=70?'tag-blue':'tag-amber');
-    document.getElementById('res-bars').innerHTML=[
-      {label:'流利度',val:res.fluency},{label:'词汇量',val:res.vocabulary},
-      {label:'自然度',val:res.naturalness},{label:'自信心',val:res.confidence},
-    ].map(d=>`<div><div class="bar-label"><span>${d.label}</span><span>${d.val}</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${d.val}%"></div></div></div>`).join('');
-    let fb=res.feedback||'';
-    if(res.suggestions?.length) fb+='\n\n💬 建议：\n'+res.suggestions.map(s=>'• '+s).join('\n');
-    document.getElementById('res-feedback').textContent=fb;
-    document.getElementById('res-encourage').textContent='✨ '+(res.encouragement||'坚持练习，你会越来越棒的！');
-    records.unshift({scene:curScene.name,emoji:curScene.emoji,score:res.overall,date:new Date().toLocaleDateString('zh-CN'),ts:Date.now()});
-    if(records.length>100) records=records.slice(0,100);
-    localStorage.setItem('eq_records',JSON.stringify(records));
-  }catch(e){
-    document.getElementById('res-score').textContent='85';
-    const badge=document.getElementById('res-badge');
-    badge.textContent='继续加油！'; badge.className='tag tag-blue'; badge.style.cssText='font-size:13px;padding:4px 12px;';
-    document.getElementById('res-bars').innerHTML=['流利度','词汇量','自然度','自信心'].map(l=>`
-      <div><div class="bar-label"><span>${l}</span><span>85</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div></div>`).join('');
-    document.getElementById('res-feedback').textContent='完成了这段对话，非常棒！继续坚持每天练习，口语会越来越流利的。';
-    document.getElementById('res-encourage').textContent='✨ 每一次开口都是进步，继续坚持下去！';
-    records.unshift({scene:curScene.name,emoji:curScene.emoji,score:85,date:new Date().toLocaleDateString('zh-CN'),ts:Date.now()});
-    localStorage.setItem('eq_records',JSON.stringify(records));
-  }
-}
-
-function tryAgain(){ startChat(userRoleEn, userRoleCn); }
-
-// ══ 自由对话 ══════════════════════════════════════════════
-function renderFreeSetup(){
-  document.getElementById('free-topics').innerHTML=FREE_TOPICS.map(t=>`
-    <button class="free-topic-btn${freeTopic===t.id?' active':''}" onclick="setTopic('${t.id}',this)">${t.label}</button>`).join('');
-}
-function setTopic(id,el){freeTopic=id;document.querySelectorAll('.free-topic-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
-function setLevel(el){freeLevel=el.dataset.level;document.querySelectorAll('.free-level').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
-
-async function startFreeChat(){
-  freeChatHistory=[];
-  document.getElementById('free-setup').style.display='none';
-  document.getElementById('free-chat').style.display='block';
-  const topic=FREE_TOPICS.find(t=>t.id===freeTopic);
-  const levelLabel={beginner:'初级',intermediate:'中级',advanced:'高级'}[freeLevel];
-  document.getElementById('free-topic-tag').textContent=topic.label;
-  document.getElementById('free-level-tag').textContent=levelLabel;
-  document.getElementById('free-context').textContent='📍 话题：'+topic.label+'　难度：'+levelLabel+'　全程英文，放松说话！';
-  document.getElementById('free-messages').innerHTML='';
-  document.getElementById('free-input').value='';
-  addFreeMsg('system','自由对话开始！AI会根据你的水平自然对话。点🎤开口说！😊');
-
-  const levelInstructions = {
-    beginner: 'IMPORTANT: The learner is a BEGINNER. Use ONLY very simple words (A1-A2 level). Keep each sentence under 8 words. Speak slowly and clearly. Ask only ONE simple question at a time. Use simple present tense mostly.',
-    intermediate: 'The learner is intermediate level. Use everyday vocabulary. Keep sentences moderate length. Ask one follow-up question.',
-    advanced: 'The learner is advanced. Speak naturally with varied vocabulary and sentence structures.'
-  };
-  const sysPrompt=`You are a friendly English conversation partner helping a Chinese learner practice speaking. ${topic.prompt} ${levelInstructions[freeLevel]} If the learner makes a grammar mistake, naturally model the correct form in your reply. Speak only English. Start the conversation warmly with a very simple opening.`;
-
-  const loadEl=addFreeMsg('typing','AI: ...');
-  try{
-    const r=await callArk(sysPrompt,[{role:'user',content:'[Start the conversation]'}]);
-    loadEl.className='bubble ai'; loadEl.textContent='AI: '+r;
-    speak(r, freeLevel); freeChatHistory.push({role:'assistant',content:r});
-  }catch(e){
-    loadEl.className='bubble ai'; loadEl.textContent="AI: Hi! Let's practice English together! What would you like to talk about?";
-    speak("Hi! Let's practice English together!", freeLevel); 
-    freeChatHistory.push({role:'assistant',content:"Hi! Let's practice!"});
-  }
-}
-
-function endFreeChat(){
-  window.speechSynthesis?.cancel();
-  document.getElementById('free-setup').style.display='block';
-  document.getElementById('free-chat').style.display='none';
-  freeChatHistory=[];
-}
-
-function handleFreeKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendFree();}}
-
-async function sendFree(){
-  const inp=document.getElementById('free-input');
-  const text=inp.value.trim(); if(!text||aiWaiting) return;
-  inp.value=''; addFreeMsg('user',text); freeChatHistory.push({role:'user',content:text});
-  aiWaiting=true;
-  const loadEl=addFreeMsg('typing','AI: ...');
-  const topic=FREE_TOPICS.find(t=>t.id===freeTopic);
-  const levelInstr = {
-    beginner: 'IMPORTANT: Use ONLY simple words. Max 8 words per sentence. One simple question only.',
-    intermediate: 'Use everyday vocabulary. Moderate sentence length. One follow-up question.',
-    advanced: 'Speak naturally with varied vocabulary.'
-  };
-  const sysPrompt=`You are a friendly English conversation partner. ${topic.prompt} ${levelInstr[freeLevel]} Naturally correct errors by modeling correct usage. Speak only English.`;
-  try{
-    const r=await callArk(sysPrompt, freeChatHistory);
-    loadEl.className='bubble ai'; loadEl.textContent='AI: '+r;
-    speak(r, freeLevel); freeChatHistory.push({role:'assistant',content:r});
-  }catch(e){
-    loadEl.className='bubble hint'; loadEl.textContent='⚠️ 网络连接失败，请重试。';
-  }
-  aiWaiting=false;
-}
-
-// ══ TTS朗读 ═══════════════════════════════════════════════
-function speak(text, level){
-  if(!ttsEnabled||!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const rate = level==='beginner'?0.72 : level==='intermediate'?0.82 : 0.92;
-  const voices=window.speechSynthesis.getVoices();
-  const v=voices.find(v=>v.lang.startsWith('en-US'))||voices.find(v=>v.lang.startsWith('en'));
-  const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
-  sentences.forEach(s=>{
-    const utter=new SpeechSynthesisUtterance(s.trim());
-    utter.lang='en-US'; utter.rate=rate; utter.pitch=1;
-    if(v) utter.voice=v;
-    window.speechSynthesis.speak(utter);
-  });
-}
-
-function toggleTTS(){
-  ttsEnabled=!ttsEnabled;
-  document.querySelectorAll('#tts-btn,#free-tts-btn').forEach(b=>{
-    if(b) b.textContent=ttsEnabled?'🔊 朗读开':'🔇 朗读关';
-  });
-  if(!ttsEnabled) window.speechSynthesis?.cancel();
-}
-
-// ══ 语音识别 ══════════════════════════════════════════════
-function toggleMic(target){
-  if(isListening){stopMic();return;}
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('请使用Chrome浏览器以支持语音输入。');return;}
-  micTarget=target;
-  recognition=new SR();
+  recognition = new SR();
   recognition.lang='en-US'; recognition.continuous=false; recognition.interimResults=true;
-  const micBtn=document.getElementById(target+'-mic');
-  const inputEl=document.getElementById(target+'-input');
-  const tipEl=document.getElementById(target+'-tip');
-
-  recognition.onstart=()=>{
-    isListening=true; micBtn.classList.add('listening'); micBtn.textContent='⏹';
-    if(tipEl) tipEl.textContent='🔴 正在听...说完会自动停止';
-    window.speechSynthesis?.cancel();
-  };
+  let finalText='';
+  recognition.onstart=()=>{ isListening=true; setMic('listening','正在听你说...','说完后会自动停止 🎙️'); };
   recognition.onresult=(e)=>{
-    let final='',interim='';
+    finalText=''; let interim='';
     for(let i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal) final+=e.results[i][0].transcript;
+      if(e.results[i].isFinal) finalText+=e.results[i][0].transcript;
       else interim+=e.results[i][0].transcript;
     }
-    inputEl.value=final||interim;
+    document.getElementById('chat-status').textContent = finalText||interim||'正在听...';
   };
   recognition.onend=()=>{
-    isListening=false; micBtn.classList.remove('listening'); micBtn.textContent='🎤';
-    if(tipEl) tipEl.textContent='点🎤开始说话 · 或打字后按 Enter 发送';
-    const text=inputEl.value.trim();
-    if(text){if(target==='chat') sendChat(); else sendFree();}
+    isListening=false;
+    if(finalText.trim()){
+      userLines.push(finalText.trim());
+      addBubble('user', finalText.trim());
+      setMic('disabled','AI正在回应...','');
+      aiTurn(finalText.trim(), false);
+    } else {
+      setMic('ready','没听到，再试一次','点🎤 重新说 👇');
+    }
   };
   recognition.onerror=(e)=>{
-    isListening=false; micBtn.classList.remove('listening'); micBtn.textContent='🎤';
-    if(e.error==='not-allowed') alert('请允许浏览器使用麦克风权限。');
+    isListening=false;
+    if(e.error==='not-allowed') alert('请允许浏览器使用麦克风。');
+    setMic('ready','出错了，请再试','点🎤 重新说 👇');
   };
   recognition.start();
 }
-function stopMic(){if(recognition) recognition.stop();}
+
+function stopListen(){ if(recognition) recognition.stop(); }
+
+function setMic(state, status, hint){
+  const btn = document.getElementById('mic-big');
+  btn.className='mic-big';
+  if(state==='disabled') btn.classList.add('disabled');
+  else if(state==='listening') btn.classList.add('listening');
+  else if(state==='speaking') btn.classList.add('speaking');
+  btn.textContent = state==='listening'?'⏹':'🎤';
+  document.getElementById('chat-status').textContent = status;
+  document.getElementById('chat-hint').textContent = hint;
+}
+
+// ══ TTS朗读 ═══════════════════════════════════════════════
+function speakText(text){
+  return new Promise(resolve=>{
+    if(!window.speechSynthesis){ resolve(); return; }
+    window.speechSynthesis.cancel();
+    const sentences = text.match(/[^.!?]+[.!?]*/g)||[text];
+    let idx=0;
+    function next(){
+      if(idx>=sentences.length){ resolve(); return; }
+      const s=sentences[idx++].trim();
+      if(!s){ next(); return; }
+      const u=new SpeechSynthesisUtterance(s);
+      u.lang='en-US'; u.rate=curLevel.ttsRate; u.pitch=1;
+      const voices=window.speechSynthesis.getVoices();
+      const v=voices.find(v=>v.lang.startsWith('en-US'))||voices.find(v=>v.lang.startsWith('en'));
+      if(v) u.voice=v;
+      u.onend=()=>setTimeout(next,120);
+      u.onerror=()=>setTimeout(next,120);
+      window.speechSynthesis.speak(u);
+    }
+    const vs=window.speechSynthesis.getVoices();
+    if(vs.length>0) next();
+    else{ window.speechSynthesis.onvoiceschanged=next; setTimeout(next,600); }
+  });
+}
+
+// ══ 退出/结束对话 ══════════════════════════════════════════
+function exitChat(){
+  window.speechSynthesis?.cancel();
+  if(recognition) recognition.stop();
+  document.getElementById('chat-screen').classList.remove('open');
+}
+
+async function finishChat(){
+  window.speechSynthesis?.cancel();
+  if(recognition) recognition.stop();
+  document.getElementById('chat-screen').classList.remove('open');
+  document.getElementById('result-screen').classList.add('open');
+  document.getElementById('res-score').textContent='--';
+  document.getElementById('res-badge').textContent='';
+  document.getElementById('res-bars').innerHTML='';
+  document.getElementById('res-feedback').textContent='AI正在分析你的表现...';
+  document.getElementById('res-encourage').textContent='';
+  document.getElementById('res-gold').style.display='none';
+  document.getElementById('res-scene').textContent=curScene.icon+' '+curScene.name+' · '+curLevel.badge;
+
+  if(userLines.length===0){
+    document.getElementById('res-emoji').textContent='😊';
+    document.getElementById('res-title').textContent='下次加油！';
+    document.getElementById('res-feedback').textContent='这次没有检测到你的发言，没关系！回去再练一次，开口就是进步！';
+    document.getElementById('res-encourage').textContent='✨ 勇于开口是最重要的第一步！';
+    return;
+  }
+
+  const transcript = userLines.map((l,i)=>`Turn ${i+1}: "${l}"`).join('\n');
+  const evalPrompt=`You are an English speaking coach evaluating a Chinese learner (${curLevel.badge} level) in a "${curScene.name}" conversation as the user role.
+
+Their ${userLines.length} responses:
+${transcript}
+
+Return ONLY valid JSON (no markdown):
+{
+  "overall": 82,
+  "fluency": 80,
+  "vocabulary": 78,
+  "naturalness": 82,
+  "confidence": 85,
+  "emoji": "🌟",
+  "title": "点餐小达人",
+  "badge": "继续加油！",
+  "feedback": "3-4 sentences warm specific feedback IN CHINESE highlighting what they did well and one area to improve",
+  "encouragement": "1 motivating sentence IN CHINESE, fun and encouraging",
+  "gold_phrases": [
+    {"en": "I'll have the turkey, please.", "cn": "我要火鸡，谢谢"},
+    {"en": "Can I get extra pickles?", "cn": "能多加点腌黄瓜吗？"}
+  ]
+}
+
+Badge options: "非常出色！" "表现很棒！" "进步明显！" "继续加油！" "初战告捷！"
+Title: a fun Chinese title like "点餐小达人" "酒店达人" "表达高手" "勇敢开口奖" etc.
+gold_phrases: 2 useful English expressions from this conversation context that the learner should remember.`;
+
+  try{
+    const raw=await callArk(evalPrompt,[{role:'user',content:'Evaluate please.'}]);
+    const res=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    document.getElementById('res-emoji').textContent=res.emoji||'🎉';
+    document.getElementById('res-title').textContent=res.title||'对话完成！';
+    document.getElementById('res-score').textContent=res.overall;
+    document.getElementById('res-badge').textContent=res.badge;
+    document.getElementById('res-bars').innerHTML=[
+      {label:'流利度',val:res.fluency},{label:'词汇量',val:res.vocabulary},
+      {label:'自然度',val:res.naturalness},{label:'自信心',val:res.confidence},
+    ].map(d=>`<div class="bar-row">
+      <div class="bar-name">${d.label}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${d.val}%"></div></div>
+      <div class="bar-val">${d.val}</div>
+    </div>`).join('');
+    document.getElementById('res-feedback').textContent=res.feedback||'';
+    document.getElementById('res-encourage').textContent='✨ '+(res.encouragement||'坚持练习，你会越来越棒的！');
+    // 今日金句
+    if(res.gold_phrases?.length){
+      document.getElementById('res-gold').style.display='block';
+      document.getElementById('gold-list').innerHTML=res.gold_phrases.map(p=>`
+        <div class="gold-item">
+          <div style="flex:1;">
+            <div class="gold-en">${p.en}</div>
+            <div class="gold-cn">${p.cn}</div>
+          </div>
+          <span class="gold-save" onclick="saveGoldPhrase('${p.en.replace(/'/g,"\\'")}','${p.cn.replace(/'/g,"\\'")}',this)">☆</span>
+        </div>`).join('');
+    }
+    // 保存记录
+    records.unshift({scene:curScene.name,emoji:curScene.icon,level:curLevel.badge,score:res.overall,title:res.title,date:new Date().toLocaleDateString('zh-CN'),ts:Date.now()});
+    if(records.length>100) records=records.slice(0,100);
+    localStorage.setItem('eq_records',JSON.stringify(records));
+  }catch(e){
+    document.getElementById('res-emoji').textContent='🎉';
+    document.getElementById('res-title').textContent='对话完成！';
+    document.getElementById('res-score').textContent='85';
+    document.getElementById('res-badge').textContent='继续加油！';
+    document.getElementById('res-bars').innerHTML=['流利度','词汇量','自然度','自信心'].map(l=>`
+      <div class="bar-row"><div class="bar-name">${l}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+      <div class="bar-val">85</div></div>`).join('');
+    document.getElementById('res-feedback').textContent='你完成了这段对话，非常棒！开口说英文就是最大的进步。';
+    document.getElementById('res-encourage').textContent='✨ 每天坚持练习，你的英语会越来越自然！';
+    records.unshift({scene:curScene.name,emoji:curScene.icon,level:curLevel.badge,score:85,title:'对话完成',date:new Date().toLocaleDateString('zh-CN'),ts:Date.now()});
+    localStorage.setItem('eq_records',JSON.stringify(records));
+  }
+}
+
+function saveGoldPhrase(en,cn,el){
+  if(collected.find(c=>c.en===en)) return;
+  collected.unshift({en,cn,from:'今日金句',ts:Date.now()});
+  localStorage.setItem('eq_collected',JSON.stringify(collected));
+  el.textContent='★'; el.style.color='#f5a623';
+}
+
+function tryAgain(){ closeResult(); startChat(curScene.id); }
+function closeResult(){
+  document.getElementById('result-screen').classList.remove('open');
+}
+
+// ══ 场景练习页（剧本）══════════════════════════════════════
+const SCRIPT_SCENES = [
+  {id:'ss1',name:'三明治点餐',emoji:'🥖',cat:'餐饮',catClass:'tag-food',desc:'按剧本练习完整点餐流程',
+   roles:[{en:'Customer',cn:'顾客'},{en:'Staff',cn:'店员'}],
+   script:[{r:'Staff',t:"Hey, welcome! What can I get started for you today?"},{r:'Customer',t:"I'd like a sandwich please."},{r:'Staff',t:"Great! White, wheat, or Italian herbs bread?"},{r:'Customer',t:"Italian herbs please."},{r:'Staff',t:"Turkey, ham, or roast beef?"},{r:'Customer',t:"Turkey please."},{r:'Staff',t:"Any toppings? Lettuce, tomato, pickles, onions."},{r:'Customer',t:"Lettuce and tomato please."},{r:'Staff',t:"Sauce? Honey mustard, mayo, or ranch?"},{r:'Customer',t:"Honey mustard please."},{r:'Staff',t:"That's $8.50. Cash or card?"},{r:'Customer',t:"Card please."},{r:'Staff',t:"Here you go! Enjoy!"}]},
+  {id:'ss2',name:'酒店入住',emoji:'🏨',cat:'出行',catClass:'tag-travel',desc:'完整入住和服务请求',
+   roles:[{en:'Guest',cn:'住客'},{en:'Receptionist',cn:'前台'}],
+   script:[{r:'Receptionist',t:"Good evening! Welcome. Do you have a reservation?"},{r:'Guest',t:"Yes, I booked online."},{r:'Receptionist',t:"May I have your name and passport?"},{r:'Guest',t:"Sure, here's my passport."},{r:'Receptionist',t:"You're in Room 205. Here's your key card."},{r:'Guest',t:"Thank you. Where's breakfast?"},{r:'Receptionist',t:"Second floor, 7 to 10 am. It's included."},{r:'Guest',t:"Great. Can I get an extra pillow?"},{r:'Receptionist',t:"Of course! Housekeeping will bring one up."},{r:'Guest',t:"Perfect, thank you."},{r:'Receptionist',t:"My pleasure. Enjoy your stay!"}]},
+  {id:'ss3',name:'机场值机',emoji:'✈️',cat:'出行',catClass:'tag-travel',desc:'登机手续和行李托运',
+   roles:[{en:'Passenger',cn:'旅客'},{en:'Agent',cn:'值机员'}],
+   script:[{r:'Agent',t:"Good morning! Passport please."},{r:'Passenger',t:"Here you go."},{r:'Agent',t:"Checking any bags today?"},{r:'Passenger',t:"Yes, one suitcase."},{r:'Agent',t:"22 kilos — just within limit. Window or aisle?"},{r:'Passenger',t:"Aisle please."},{r:'Agent',t:"You're in 24C. Gate B12, boarding at 2:15pm."},{r:'Passenger',t:"What time does the gate close?"},{r:'Agent',t:"20 minutes before departure — by 2:40pm."},{r:'Passenger',t:"Got it, thank you."},{r:'Agent',t:"Have a great flight!"}]},
+  {id:'ss4',name:'餐厅用餐',emoji:'🍽️',cat:'餐饮',catClass:'tag-food',desc:'点餐到结账完整流程',
+   roles:[{en:'Diner',cn:'食客'},{en:'Waiter',cn:'服务员'}],
+   script:[{r:'Waiter',t:"Good evening! Something to drink first?"},{r:'Diner',t:"Water and a Coke please."},{r:'Waiter',t:"Ready to order or need more time?"},{r:'Diner',t:"Ready. Any vegetarian options?"},{r:'Waiter',t:"Vegetable pasta and garden salad — both popular."},{r:'Diner',t:"I'll have the pasta please."},{r:'Waiter',t:"Any appetizers? Garlic bread is great."},{r:'Diner',t:"Sure, garlic bread sounds good."},{r:'Waiter',t:"Perfect! I'll get that in right away."},{r:'Diner',t:"Could I get an extra fork?"},{r:'Waiter',t:"Of course! Coming right up."},{r:'Diner',t:"Thank you."},{r:'Waiter',t:"My pleasure! Food will be out shortly."}]},
+  {id:'ss5',name:'货币兑换',emoji:'💱',cat:'金融',catClass:'tag-finance',desc:'询问汇率完成兑换',
+   roles:[{en:'Customer',cn:'顾客'},{en:'Teller',cn:'柜员'}],
+   script:[{r:'Teller',t:"Good morning! How can I help?"},{r:'Customer',t:"I'd like to exchange yuan for euros."},{r:'Teller',t:"Today's rate is 1 yuan to 0.13 euros. 2% service fee."},{r:'Customer',t:"If I exchange 5000 yuan, how much do I get?"},{r:'Teller',t:"After the fee, about 637 euros."},{r:'Customer',t:"That's fine. I'll exchange 5000 yuan."},{r:'Teller',t:"May I see your passport?"},{r:'Customer',t:"Sure, here it is."},{r:'Teller',t:"Here's your 637 euros and receipt."},{r:'Customer',t:"Thank you very much."},{r:'Teller',t:"You're welcome! Have a great trip!"}]},
+  {id:'ss6',name:'看医生',emoji:'🏥',cat:'医疗',catClass:'tag-health',desc:'描述症状获得诊断',
+   roles:[{en:'Patient',cn:'患者'},{en:'Doctor',cn:'医生'}],
+   script:[{r:'Doctor',t:"Good morning! What brings you in today?"},{r:'Patient',t:"I've been feeling unwell for a few days."},{r:'Doctor',t:"Can you describe your symptoms?"},{r:'Patient',t:"Sore throat, mild fever, and very tired."},{r:'Doctor',t:"How long have you had these?"},{r:'Patient',t:"About three days."},{r:'Doctor',t:"Any medication so far?"},{r:'Patient',t:"Just some cold medicine."},{r:'Doctor',t:"Let me check your throat."},{r:'Patient',t:"Sure."},{r:'Doctor',t:"Mild throat infection. I'll prescribe antibiotics. Rest and drink fluids."},{r:'Patient',t:"How long until I feel better?"},{r:'Doctor',t:"3 to 5 days. Come back if it gets worse."}]},
+];
+
+let scriptState = {scene:null, userRole:null, aiRole:null, idx:0, userLines:[], open:false};
+
+function renderScenePage(){
+  document.getElementById('scene-grid').innerHTML = SCRIPT_SCENES.map(s=>`
+    <div class="scene-card" onclick="openScriptScene('${s.id}')">
+      <div class="scene-emoji">${s.emoji}</div>
+      <div class="scene-name">${s.name}</div>
+      <span class="tag ${s.catClass}">${s.cat}</span>
+      <div class="scene-desc" style="margin-top:4px;">${s.desc}</div>
+    </div>`).join('');
+}
+
+function openScriptScene(id){
+  const s = SCRIPT_SCENES.find(x=>x.id===id);
+  // 显示角色选择
+  const choice = confirm(`场景：${s.emoji} ${s.name}\n\n你要扮演哪个角色？\n\n确定 = ${s.roles[0].cn}（${s.roles[0].en}）\n取消 = ${s.roles[1].cn}（${s.roles[1].en}）`);
+  const userR = choice ? s.roles[0] : s.roles[1];
+  const aiR = choice ? s.roles[1] : s.roles[0];
+  scriptState = {scene:s, userRole:userR, aiRole:aiR, idx:0, userLines:[], open:true};
+  // 复用chat screen
+  chatHistory=[]; userLines=[];
+  document.getElementById('chat-nav-title').textContent = s.emoji+' '+s.name;
+  document.getElementById('chat-level-badge').textContent = '剧本模式';
+  document.getElementById('chat-msgs').innerHTML='';
+  document.getElementById('chat-screen').classList.add('open');
+  setMic('disabled','剧本对话','');
+  addBubble('sys',`对话开始！你扮演${userR.cn}，点🎤说英文，或听AI示范后跳过。`);
+  runScript();
+}
+
+async function runScript(){
+  const {scene, userRole, aiRole, idx} = scriptState;
+  if(idx >= scene.script.length){
+    addBubble('sys','🎉 剧本完成！你可以多练几遍。');
+    setMic('disabled','对话完成','');
+    return;
+  }
+  const line = scene.script[idx];
+  if(line.r === aiRole.en){
+    addBubble('ai', aiRole.en+': '+line.t);
+    await speakText(line.t);
+    scriptState.idx++;
+    runScript();
+  } else {
+    // 用户回合
+    setMic('ready','轮到你说了！','点🎤 说：'+line.t.substring(0,20)+'...');
+  }
+}
+
+// 覆盖 sendChat 用于剧本模式
+const _origMicEnd = null;
+function handleMicTap(){
+  const btn = document.getElementById('mic-big');
+  if(btn.classList.contains('disabled')) return;
+  if(isListening){ stopListen(); return; }
+  // 判断是剧本还是AI对话
+  if(scriptState.open && document.getElementById('chat-level-badge').textContent==='剧本模式'){
+    startListenScript();
+  } else {
+    startListen();
+  }
+}
+
+function startListenScript(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('请使用Chrome浏览器。');return;}
+  window.speechSynthesis?.cancel();
+  recognition=new SR();
+  recognition.lang='en-US'; recognition.continuous=false; recognition.interimResults=true;
+  let finalText='';
+  recognition.onstart=()=>{isListening=true;setMic('listening','正在听...','说完自动停止');};
+  recognition.onresult=(e)=>{
+    finalText=''; let interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal) finalText+=e.results[i][0].transcript;
+      else interim+=e.results[i][0].transcript;
+    }
+    document.getElementById('chat-status').textContent=finalText||interim||'正在听...';
+  };
+  recognition.onend=()=>{
+    isListening=false;
+    if(finalText.trim()){
+      addBubble('user',finalText.trim());
+    }
+    scriptState.idx++;
+    setMic('disabled','','');
+    runScript();
+  };
+  recognition.onerror=()=>{isListening=false;setMic('ready','出错了，再试','点🎤');};
+  recognition.start();
+}
+
+// 退出时重置
+const _exitChat = exitChat;
+function exitChat(){
+  scriptState.open=false;
+  _exitChat();
+}
+
+// ══ 词句库 ════════════════════════════════════════════════
+function renderPhrases(){
+  const scroll=document.getElementById('topic-scroll');
+  scroll.innerHTML=PHRASE_TOPICS.map((t,i)=>`
+    <button class="topic-btn${i===curPhraseIdx?' active':''}" onclick="selectTopic(${i})">${t.name}</button>`).join('');
+  showTopic(curPhraseIdx);
+}
+
+function selectTopic(i){
+  curPhraseIdx=i;
+  document.querySelectorAll('.topic-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+  showTopic(i);
+}
+
+function showTopic(i){
+  const t=PHRASE_TOPICS[i];
+  document.getElementById('topic-title').textContent=t.name;
+  document.getElementById('topic-count').textContent=t.phrases.length+'个短语';
+  const savedEns=collected.map(c=>c.en);
+  document.getElementById('phrase-list').innerHTML=t.phrases.map(p=>{
+    const on=savedEns.includes(p.en);
+    return `<div class="phrase-item">
+      <div style="flex:1;"><div class="phrase-en">${p.en}</div><div class="phrase-cn">${p.cn}</div></div>
+      <span class="phrase-star${on?' on':''}" onclick="togglePhraseStar(this,'${p.en.replace(/'/g,"\\'")}','${p.cn.replace(/'/g,"\\'")}')">
+        ${on?'★':'☆'}</span></div>`;}).join('');
+}
+
+function togglePhraseStar(el,en,cn){
+  const idx=collected.findIndex(c=>c.en===en);
+  if(idx>=0){collected.splice(idx,1);el.textContent='☆';el.classList.remove('on');}
+  else{collected.unshift({en,cn,from:'词句库',ts:Date.now()});el.textContent='★';el.classList.add('on');}
+  localStorage.setItem('eq_collected',JSON.stringify(collected));
+}
+
+// ══ 我的收藏 ══════════════════════════════════════════════
+function renderCollect(){
+  if(!collected.length){
+    document.getElementById('collect-list').innerHTML='<div class="empty">还没有收藏。<br>在词句库点☆或练习后保存今日金句 ⭐</div>';
+    return;
+  }
+  document.getElementById('collect-list').innerHTML=collected.map((c,i)=>`
+    <div class="collect-item">
+      <div style="flex:1;">
+        <div class="collect-en">${c.en}</div>
+        ${c.cn?`<div class="collect-cn">${c.cn}</div>`:''}
+        <div class="collect-from">来自：${c.from||'收藏'}</div>
+      </div>
+      <span class="collect-del" onclick="delCollect(${i})">×</span>
+    </div>`).join('');
+}
+
+function addCollectManual(){
+  const en=document.getElementById('add-en').value.trim();
+  const cn=document.getElementById('add-cn').value.trim();
+  if(!en) return;
+  collected.unshift({en,cn,from:'手动添加',ts:Date.now()});
+  localStorage.setItem('eq_collected',JSON.stringify(collected));
+  document.getElementById('add-en').value='';
+  document.getElementById('add-cn').value='';
+  renderCollect();
+}
+
+function delCollect(i){
+  collected.splice(i,1);
+  localStorage.setItem('eq_collected',JSON.stringify(collected));
+  renderCollect();
+}
 
 // ══ 学习记录 ══════════════════════════════════════════════
 function renderRecords(){
-  const total=records.length,avg=total?Math.round(records.reduce((s,r)=>s+r.score,0)/total):0,best=total?Math.max(...records.map(r=>r.score)):0;
-  document.getElementById('stat-grid').innerHTML=[{num:total,label:'累计练习次数'},{num:avg,label:'平均评分'},{num:best,label:'最高评分'}]
-    .map(s=>`<div class="stat-card"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`).join('');
-  if(!total){document.getElementById('records-list').innerHTML='<div class="empty">还没有练习记录，快去练习吧！🚀</div>';drawChart();return;}
+  const total=records.length;
+  const avg=total?Math.round(records.reduce((s,r)=>s+r.score,0)/total):0;
+  const best=total?Math.max(...records.map(r=>r.score)):0;
+  document.getElementById('stats-row').innerHTML=[
+    {n:total,l:'累计练习次数'},{n:avg,l:'平均评分'},{n:best,l:'最高评分'}
+  ].map(s=>`<div class="stat-box"><div class="stat-n">${s.n}</div><div class="stat-l">${s.l}</div></div>`).join('');
+  // 打卡
+  const today=new Date();
+  const days=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(today); d.setDate(d.getDate()-i);
+    const ds=d.toLocaleDateString('zh-CN');
+    const done=records.some(r=>r.date===ds);
+    days.push({label:['日','一','二','三','四','五','六'][d.getDay()],done});
+  }
+  document.getElementById('streak-bar').innerHTML=days.map(d=>`
+    <div class="streak-day${d.done?' done':''}">${d.label}</div>`).join('');
+  if(!total){
+    document.getElementById('records-list').innerHTML='<div class="empty">还没有练习记录，快去练习吧！🚀</div>';
+    return;
+  }
   document.getElementById('records-list').innerHTML=records.map(r=>`
     <div class="record-item">
-      <span style="font-size:20px;">${r.emoji||'🗣️'}</span>
-      <div style="flex:1;font-size:14px;font-weight:500;">${r.scene}</div>
-      <div style="font-size:12px;color:var(--text3);">${r.date}</div>
+      <div class="record-icon">${r.emoji||'🗣️'}</div>
+      <div class="record-info">
+        <div class="record-name">${r.scene} <span style="font-size:11px;color:var(--text3);">· ${r.level||''}</span></div>
+        <div class="record-meta">${r.title||''} · ${r.date}</div>
+      </div>
       <div class="record-score">${r.score}</div>
     </div>`).join('');
-  drawChart();
-}
-function drawChart(){
-  const canvas=document.getElementById('score-chart'),ctx=canvas.getContext('2d');
-  const data=records.slice(0,20).reverse();
-  const W=canvas.offsetWidth||600,H=140; canvas.width=W; canvas.height=H;
-  const pad={t:10,r:10,b:30,l:30},cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
-  ctx.clearRect(0,0,W,H);
-  if(!data.length) return;
-  const scores=data.map(r=>r.score),mn=Math.min(...scores)-5,mx=Math.max(...scores)+5;
-  const sy=s=>pad.t+ch-(s-mn)/(mx-mn)*ch,sx=i=>pad.l+(i/(data.length-1||1))*cw;
-  ctx.strokeStyle='#e0ddd8';ctx.lineWidth=0.5;
-  [0,.5,1].forEach(f=>{const y=pad.t+f*ch;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();
-    ctx.fillStyle='#999';ctx.font='11px sans-serif';ctx.textAlign='right';ctx.fillText(Math.round(mx-(mx-mn)*f),pad.l-4,y+4);});
-  ctx.beginPath();ctx.strokeStyle='#185FA5';ctx.lineWidth=2;
-  data.forEach((r,i)=>{i===0?ctx.moveTo(sx(i),sy(r.score)):ctx.lineTo(sx(i),sy(r.score));});ctx.stroke();
-  data.forEach((r,i)=>{ctx.beginPath();ctx.arc(sx(i),sy(r.score),4,0,Math.PI*2);ctx.fillStyle='#185FA5';ctx.fill();
-    if(data.length<=10){ctx.fillStyle='#999';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillText(r.score,sx(i),sy(r.score)-8);}});
-}
-function clearRecords(){if(confirm('确定清空所有学习记录？')){records=[];localStorage.removeItem('eq_records');renderRecords();}}
-
-// ══ 词句库 ════════════════════════════════════════════════
-function renderVocabPage(){renderPhraseTopics();selectPhraseTopic(0);}
-function switchVocabTab(tab){
-  document.querySelectorAll('.vocab-tab').forEach((t,i)=>t.classList.toggle('active',['phrases','saved'][i]===tab));
-  document.getElementById('vocab-phrases').style.display=tab==='phrases'?'block':'none';
-  document.getElementById('vocab-saved').style.display=tab==='saved'?'block':'none';
-  if(tab==='saved') renderSavedVocab();
-}
-function renderPhraseTopics(){
-  document.getElementById('phrase-topics').innerHTML=PHRASE_TOPICS.map((t,i)=>`
-    <div class="phrase-topic-btn${i===curPhraseIdx?' active':''}" onclick="selectPhraseTopic(${i})">
-      <div>${t.icon}</div><div class="phrase-topic-name">${t.name}</div>
-    </div>`).join('');
-}
-function selectPhraseTopic(idx){
-  curPhraseIdx=idx; renderPhraseTopics();
-  const topic=PHRASE_TOPICS[idx];
-  document.getElementById('phrase-topic-title').textContent=topic.icon+' '+topic.name;
-  document.getElementById('phrase-count').textContent=topic.phrases.length+'个短语';
-  const savedKeys=vocab.map(v=>v.en);
-  document.getElementById('phrase-list').innerHTML=topic.phrases.map(p=>{
-    const saved=savedKeys.includes(p.en);
-    return `<div class="phrase-item">
-      <div style="flex:1;"><div class="phrase-en">${p.en}</div><div class="phrase-cn">${p.cn}</div></div>
-      <span class="phrase-save${saved?' saved':''}" onclick="togglePhraseSave(this,'${p.en.replace(/'/g,"\\'")}','${p.cn.replace(/'/g,"\\'")}')">
-        ${saved?'★':'☆'}</span></div>`;}).join('');
-}
-function togglePhraseSave(el,en,cn){
-  const idx=vocab.findIndex(v=>v.en===en);
-  if(idx>=0){vocab.splice(idx,1);el.textContent='☆';el.classList.remove('saved');}
-  else{vocab.unshift({en,cn,scene:'900串儿',ts:Date.now()});el.textContent='★';el.classList.add('saved');}
-  localStorage.setItem('eq_vocab',JSON.stringify(vocab));
-}
-function renderSavedVocab(){
-  if(!vocab.length){document.getElementById('vocab-list').innerHTML='<div class="empty">还没有收藏。在短语库点☆收藏，或练习时点「加入词句库」。📚</div>';return;}
-  document.getElementById('vocab-list').innerHTML=vocab.map((v,i)=>`
-    <div class="vocab-item">
-      <div style="flex:1;"><div class="vocab-en">${v.en}</div>
-      ${v.cn?`<div class="vocab-cn">${v.cn}</div>`:''}
-      ${v.scene?`<div class="vocab-scene">来自：${v.scene}</div>`:''}</div>
-      <span class="vocab-del" onclick="delVocab(${i})">×</span>
-    </div>`).join('');
-}
-function addVocabManual(){
-  const en=document.getElementById('vocab-en-input').value.trim(),cn=document.getElementById('vocab-cn-input').value.trim();
-  if(!en) return;
-  vocab.unshift({en,cn,scene:'手动添加',ts:Date.now()});
-  localStorage.setItem('eq_vocab',JSON.stringify(vocab));
-  document.getElementById('vocab-en-input').value=''; document.getElementById('vocab-cn-input').value='';
-  renderSavedVocab();
-}
-function delVocab(i){vocab.splice(i,1);localStorage.setItem('eq_vocab',JSON.stringify(vocab));renderSavedVocab();}
-function openVocabModal(){
-  document.getElementById('modal-en').value=''; document.getElementById('modal-cn').value='';
-  document.getElementById('vocab-modal').classList.add('open');
-  setTimeout(()=>document.getElementById('modal-en').focus(),100);
-}
-function closeVocabModal(){document.getElementById('vocab-modal').classList.remove('open');}
-function saveVocabModal(){
-  const en=document.getElementById('modal-en').value.trim(),cn=document.getElementById('modal-cn').value.trim();
-  if(!en){alert('请输入英文表达');return;}
-  vocab.unshift({en,cn,scene:curScene?.name||freeTopic||'对话练习',ts:Date.now()});
-  localStorage.setItem('eq_vocab',JSON.stringify(vocab));
-  closeVocabModal(); alert('✅ 已加入词句库！');
 }
 
-// ══ 辅助函数 ══════════════════════════════════════════════
-function addMsg(type,text){
-  const area=document.getElementById('chat-messages');
-  const div=document.createElement('div'); div.className='bubble '+type; div.textContent=text;
-  area.appendChild(div); area.scrollTop=area.scrollHeight; return div;
-}
-function addFreeMsg(type,text){
-  const area=document.getElementById('free-messages');
-  const div=document.createElement('div'); div.className='bubble '+type; div.textContent=text;
-  area.appendChild(div); area.scrollTop=area.scrollHeight; return div;
+function clearRecords(){
+  if(confirm('确定清空所有记录？')){
+    records=[];localStorage.removeItem('eq_records');renderRecords();
+  }
 }
 
+// ══ API调用 ═══════════════════════════════════════════════
 async function callArk(system, messages){
   const resp=await fetch(ARK_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+ARK_API_KEY},
-    body:JSON.stringify({model:ARK_ENDPOINT,max_tokens:500,
+    body:JSON.stringify({model:ARK_ENDPOINT,max_tokens:300,
       messages:[{role:'system',content:system},...messages]})
   });
   const data=await resp.json();
@@ -914,7 +996,17 @@ async function callArk(system, messages){
   return data.choices[0].message.content;
 }
 
-renderScenes();
+function addBubble(type,text){
+  const area=document.getElementById('chat-msgs');
+  const div=document.createElement('div');
+  div.className='bubble '+type; div.textContent=text;
+  area.appendChild(div); area.scrollTop=area.scrollHeight; return div;
+}
+
+// ══ 初始化 ════════════════════════════════════════════════
+renderSpeakPage();
+renderScenePage();
+window.speechSynthesis?.getVoices();
 </script>
 </body>
 </html>
