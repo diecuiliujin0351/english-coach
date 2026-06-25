@@ -141,11 +141,17 @@ nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;t
 @keyframes ldots{0%,20%{content:'.'} 40%{content:'..'} 60%,80%{content:'...'} 100%{content:''}}
 .chat-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
 @media(max-width:600px){
-  .nav-tab{padding:0 8px;font-size:12px;}
+  .nav-inner{flex-direction:column;height:auto;padding:0;}
+  .nav-logo{width:100%;padding:10px 1rem 0;font-size:15px;}
+  .nav-tabs{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .nav-tab{padding:0 12px;height:40px;font-size:13px;flex-shrink:0;}
+  .scene-grid{grid-template-columns:repeat(2,1fr);}
   .bars-grid{grid-template-columns:1fr;}
   .role-grid{grid-template-columns:1fr;}
   .stat-grid{grid-template-columns:repeat(3,1fr);}
   .phrase-cn{min-width:80px;}
+  .phrase-topic-grid{grid-template-columns:repeat(3,1fr);}
+  .page{padding:1rem 0.75rem;}
 }
 </style>
 </head>
@@ -191,6 +197,7 @@ nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;t
     <button class="btn btn-sm" onclick="getHint()">💡 提示</button>
     <button class="btn btn-sm" onclick="skipTurn()">⏭ 跳过这句</button>
     <button class="btn btn-sm" onclick="openVocabModal()">📝 加入词句库</button>
+    <button class="btn btn-sm" id="tts-toggle" onclick="toggleTTS()">🔊 朗读开</button>
   </div>
   <div class="chat-input-row">
     <button class="mic-btn" id="chat-mic" onclick="toggleMic('chat')" title="按住说话">🎤</button>
@@ -251,6 +258,7 @@ nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;t
     <div class="chat-tools">
       <button class="btn btn-sm" onclick="getFreeHint()">💡 表达提示</button>
       <button class="btn btn-sm" onclick="openVocabModal()">📝 加入词句库</button>
+      <button class="btn btn-sm" id="free-tts-toggle" onclick="toggleTTS()">🔊 朗读开</button>
     </div>
     <div class="chat-input-row">
       <button class="mic-btn" id="free-mic" onclick="toggleMic('free')" title="按住说话">🎤</button>
@@ -567,7 +575,11 @@ function startSceneChat(roleEn,roleCn){
 function advanceScript(){
   while(scriptIdx<curScene.script.length){
     const line=curScene.script[scriptIdx];
-    if(line.r===aiRole.en){addMsg('ai',aiRole.en+': '+line.t);scriptIdx++;}
+    if(line.r===aiRole.en){
+      const bubble=addMsg('ai',aiRole.en+': '+line.t);
+      speak(line.t);
+      scriptIdx++;
+    }
     else break;
   }
   if(scriptIdx>=curScene.script.length){
@@ -670,8 +682,8 @@ async function startFreeChat(){
   const sysPrompt=`You are a friendly English conversation partner helping a Chinese learner practice speaking. Topic: ${freeTopic}. Learner level: ${freeLevel}. Keep sentences ${freeLevel==='beginner'?'short and simple':'natural'}. Ask follow-up questions. If learner makes a grammar mistake, gently note it. No Chinese. Start with a warm opening related to the topic.`;
   const loadEl=addFreeMsg('ai','...');
   try{const r=await callAPI(sysPrompt,[{role:'user',content:'[Start the conversation]'}]);
-    loadEl.textContent='AI: '+r; freeChatHistory.push({role:'assistant',content:r});}
-  catch(e){loadEl.textContent="AI: Hi! Let's chat! How are you today?";freeChatHistory.push({role:'assistant',content:"Hi! How are you today?"});}
+    loadEl.textContent='AI: '+r; speak(r); freeChatHistory.push({role:'assistant',content:r});}
+  catch(e){loadEl.textContent="AI: Hi! Let's chat! How are you today?"; speak("Hi! Let's chat! How are you today?"); freeChatHistory.push({role:'assistant',content:"Hi! How are you today?"});}
 }
 function endFreeChat(){document.getElementById('free-setup').style.display='block';document.getElementById('free-chat').style.display='none';freeChatHistory=[];}
 function handleFreeKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendFree();}}
@@ -681,8 +693,8 @@ async function sendFree(){
   inp.value=''; addFreeMsg('user',text); freeChatHistory.push({role:'user',content:text});
   aiWaiting=true; const loadEl=addFreeMsg('ai','...');
   try{const r=await callAPI(`You are a friendly English conversation partner. Topic: ${freeTopic}. Level: ${freeLevel}. Keep replies conversational. Ask a follow-up. Gently correct errors. No Chinese.`,freeChatHistory);
-    loadEl.textContent='AI: '+r; freeChatHistory.push({role:'assistant',content:r});}
-  catch(e){loadEl.textContent="AI: That's interesting! Tell me more about that.";}
+    loadEl.textContent='AI: '+r; speak(r); freeChatHistory.push({role:'assistant',content:r});}
+  catch(e){loadEl.textContent="AI: That's interesting! Tell me more about that."; speak("That's interesting! Tell me more about that.");}
   aiWaiting=false;
 }
 async function getFreeHint(){
@@ -822,6 +834,37 @@ async function callAPI(system,messages){
   const data=await resp.json();
   if(data.error) throw new Error(data.error.message);
   return data.content.map(c=>c.text||'').join('');
+}
+
+// ── TEXT TO SPEECH ───────────────────────────────────────
+let ttsEnabled = true;
+let currentUtterance = null;
+
+function speak(text) {
+  if (!ttsEnabled) return;
+  if (!window.speechSynthesis) return;
+  // 只朗读英文部分，去掉角色名前缀如 "Staff: "
+  const clean = text.replace(/^[^:]+:\s*/, '');
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(clean);
+  utter.lang = 'en-US';
+  utter.rate = 0.9;
+  utter.pitch = 1;
+  // 优先选英文语音
+  const voices = window.speechSynthesis.getVoices();
+  const enVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'))
+    || voices.find(v => v.lang.startsWith('en-US'))
+    || voices.find(v => v.lang.startsWith('en'));
+  if (enVoice) utter.voice = enVoice;
+  currentUtterance = utter;
+  window.speechSynthesis.speak(utter);
+}
+
+function toggleTTS() {
+  ttsEnabled = !ttsEnabled;
+  const btn = document.getElementById('tts-toggle');
+  if (btn) btn.textContent = ttsEnabled ? '🔊 朗读开' : '🔇 朗读关';
+  if (!ttsEnabled) window.speechSynthesis.cancel();
 }
 
 // ── SPEECH RECOGNITION ───────────────────────────────────
