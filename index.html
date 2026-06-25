@@ -72,6 +72,10 @@ nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;t
 .chat-input-row textarea{flex:1;resize:none;font-size:14px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-family:inherit;line-height:1.5;min-height:44px;max-height:120px;color:var(--text);background:var(--bg);outline:none;}
 .chat-input-row textarea:focus{border-color:var(--blue);}
 .chat-tip{font-size:12px;color:var(--text3);margin-top:6px;}
+.mic-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border2);background:var(--bg);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.mic-btn:hover{background:var(--bg2);}
+.mic-btn.listening{background:#e24b4a;border-color:#e24b4a;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
 /* RESULT */
 .score-big{font-size:56px;font-weight:700;color:var(--blue);line-height:1;}
 .score-sub{font-size:13px;color:var(--text2);margin-top:4px;}
@@ -189,10 +193,11 @@ nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;t
     <button class="btn btn-sm" onclick="openVocabModal()">📝 加入词句库</button>
   </div>
   <div class="chat-input-row">
-    <textarea id="chat-input" placeholder="用英文输入你的回应..." rows="1" onkeydown="handleChatKey(event)"></textarea>
+    <button class="mic-btn" id="chat-mic" onclick="toggleMic('chat')" title="按住说话">🎤</button>
+    <textarea id="chat-input" placeholder="点🎤说英文，或直接打字..." rows="1" onkeydown="handleChatKey(event)"></textarea>
     <button class="btn btn-primary" onclick="sendChat()">发送</button>
   </div>
-  <div class="chat-tip">按 Enter 发送 · Shift+Enter 换行</div>
+  <div class="chat-tip" id="chat-tip">点🎤开始说话 · 或打字后按 Enter 发送</div>
 </div>
 
 <!-- 结果 -->
@@ -248,10 +253,11 @@ nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;t
       <button class="btn btn-sm" onclick="openVocabModal()">📝 加入词句库</button>
     </div>
     <div class="chat-input-row">
-      <textarea id="free-input" placeholder="用英文输入..." rows="1" onkeydown="handleFreeKey(event)"></textarea>
+      <button class="mic-btn" id="free-mic" onclick="toggleMic('free')" title="按住说话">🎤</button>
+      <textarea id="free-input" placeholder="点🎤说英文，或直接打字..." rows="1" onkeydown="handleFreeKey(event)"></textarea>
       <button class="btn btn-primary" onclick="sendFree()">发送</button>
     </div>
-    <div class="chat-tip">按 Enter 发送 · Shift+Enter 换行</div>
+    <div class="chat-tip" id="free-tip">点🎤开始说话 · 或打字后按 Enter 发送</div>
   </div>
 </div>
 
@@ -347,7 +353,7 @@ const PHRASE_TOPICS=[
     {en:"wake up to my favorite sound of music",cn:"在喜爱的音乐声中醒来"},{en:"The alarm clock went off.",cn:"闹钟响了"},
     {en:"It's time to get up!",cn:"该起床了！"},{en:"Wake up, sleepyhead!",cn:"醒醒，懒虫！"},
     {en:"I'm still sleepy.",cn:"我还困着呢"},{en:"slept like a baby",cn:"睡得太香了"},
-    {en:"had a bad dream",cn:"做了个噩梦"},{en:"hit the snooze button",cn:"按'小睡'按钮"},
+    {en:"had a bad dream",cn:"做了个噩梦"},{en:"hit the snooze button",cn:"按\"小睡\"按钮"},
     {en:"catch five more minutes to sleep",cn:"赖床多睡五分钟"},{en:"a morning person",cn:"早起有精神的人"},
     {en:"a night owl",cn:"夜猫子"},{en:"the worst part of the day",cn:"一天中最糟糕的时候"},
   ]},
@@ -816,6 +822,82 @@ async function callAPI(system,messages){
   const data=await resp.json();
   if(data.error) throw new Error(data.error.message);
   return data.content.map(c=>c.text||'').join('');
+}
+
+// ── SPEECH RECOGNITION ───────────────────────────────────
+let recognition = null;
+let isListening = false;
+let currentMicTarget = null;
+
+function initSpeech() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return null;
+  const r = new SpeechRecognition();
+  r.lang = 'en-US';
+  r.continuous = false;
+  r.interimResults = true;
+  return r;
+}
+
+function toggleMic(target) {
+  if (isListening) {
+    stopMic();
+    return;
+  }
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert('你的浏览器不支持语音输入，请使用Chrome浏览器。');
+    return;
+  }
+  currentMicTarget = target;
+  recognition = initSpeech();
+  const micBtn = document.getElementById(target + '-mic');
+  const inputEl = document.getElementById(target + '-input');
+  const tipEl = document.getElementById(target + '-tip');
+
+  recognition.onstart = () => {
+    isListening = true;
+    micBtn.classList.add('listening');
+    micBtn.textContent = '⏹';
+    if (tipEl) tipEl.textContent = '🔴 正在听...说完会自动停止';
+    inputEl.placeholder = '正在识别你说的话...';
+  };
+
+  recognition.onresult = (e) => {
+    let interim = '', final = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) final += e.results[i][0].transcript;
+      else interim += e.results[i][0].transcript;
+    }
+    inputEl.value = final || interim;
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    micBtn.classList.remove('listening');
+    micBtn.textContent = '🎤';
+    if (tipEl) tipEl.textContent = '点🎤开始说话 · 或打字后按 Enter 发送';
+    inputEl.placeholder = '点🎤说英文，或直接打字...';
+    const text = inputEl.value.trim();
+    if (text) {
+      if (target === 'chat') sendChat();
+      else sendFree();
+    }
+  };
+
+  recognition.onerror = (e) => {
+    isListening = false;
+    micBtn.classList.remove('listening');
+    micBtn.textContent = '🎤';
+    if (tipEl) tipEl.textContent = '点🎤开始说话 · 或打字后按 Enter 发送';
+    if (e.error === 'not-allowed') alert('请允许浏览器使用麦克风权限。');
+  };
+
+  recognition.start();
+}
+
+function stopMic() {
+  if (recognition) recognition.stop();
 }
 
 renderScenes();
