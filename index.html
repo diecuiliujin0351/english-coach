@@ -684,16 +684,22 @@ function startListen(){
   if(!SR){alert('请使用Chrome浏览器以支持语音功能。');return;}
   window.speechSynthesis?.cancel();
   recognition=new SR();
-  recognition.lang='en-US'; recognition.continuous=false; recognition.interimResults=true;
+  recognition.lang='en-US';
+  recognition.continuous=false;
+  recognition.interimResults=true;
+  recognition.maxAlternatives=1;
   let finalText='';
-  recognition.onstart=()=>{isListening=true;setMic('listening','🎙️ 正在听你说...','说完后会自动停止');};
+  recognition.onstart=()=>{
+    isListening=true;
+    setMic('listening','🎙️ 正在听...说完会自动停','再点一下可提前停止');
+  };
   recognition.onresult=(e)=>{
     finalText=''; let interim='';
     for(let i=e.resultIndex;i<e.results.length;i++){
       if(e.results[i].isFinal) finalText+=e.results[i][0].transcript;
       else interim+=e.results[i][0].transcript;
     }
-    document.getElementById('chat-status').textContent=finalText||interim||'正在听...';
+    document.getElementById('chat-status').textContent=(finalText||interim)||'正在听...';
   };
   recognition.onend=()=>{
     isListening=false;
@@ -703,13 +709,14 @@ function startListen(){
       setMic('disabled','AI正在回应...','');
       aiTurn(finalText.trim(),false);
     }else{
-      setMic('ready','没听到，请再试','点 🎤 重新说');
+      setMic('ready','没听到，请再试一次','点 🎤 说英文');
     }
   };
   recognition.onerror=(e)=>{
     isListening=false;
-    if(e.error==='not-allowed') alert('请允许浏览器使用麦克风。');
-    setMic('ready','出错了，请再试','点 🎤 重新说');
+    if(e.error==='not-allowed') alert('请允许浏览器使用麦克风权限。');
+    else if(e.error==='no-speech') setMic('ready','没有检测到声音，再试一次','点 🎤 说英文');
+    else setMic('ready','出错了，请再试','点 🎤 说英文');
   };
   recognition.start();
 }
@@ -728,27 +735,60 @@ function setMic(state,status,hint){
 }
 
 // ══ TTS ═══════════════════════════════════════════════════
+// 预热TTS（页面加载时调用一次空语音，解决手机首次不发音问题）
+function warmUpTTS(){
+  if(!window.speechSynthesis) return;
+  const u=new SpeechSynthesisUtterance(' ');
+  u.volume=0;
+  window.speechSynthesis.speak(u);
+}
+
 function speakText(text){
   return new Promise(resolve=>{
     if(!window.speechSynthesis){resolve();return;}
     window.speechSynthesis.cancel();
     const sentences=text.match(/[^.!?]+[.!?]*/g)||[text];
     let idx=0;
+
+    function getVoice(){
+      const voices=window.speechSynthesis.getVoices();
+      return voices.find(v=>v.lang==='en-US'&&v.localService)
+        ||voices.find(v=>v.lang.startsWith('en-US'))
+        ||voices.find(v=>v.lang.startsWith('en'))
+        ||null;
+    }
+
     function next(){
       if(idx>=sentences.length){resolve();return;}
       const s=sentences[idx++].trim();
       if(!s){next();return;}
       const u=new SpeechSynthesisUtterance(s);
-      u.lang='en-US'; u.rate=curLevel.ttsRate; u.pitch=1;
-      const voices=window.speechSynthesis.getVoices();
-      const v=voices.find(v=>v.lang.startsWith('en-US'))||voices.find(v=>v.lang.startsWith('en'));
+      u.lang='en-US';
+      u.rate=curLevel.ttsRate;
+      u.pitch=1;
+      u.volume=1;
+      const v=getVoice();
       if(v) u.voice=v;
       u.onend=()=>setTimeout(next,150);
-      u.onerror=()=>setTimeout(next,150);
-      window.speechSynthesis.speak(u);
+      u.onerror=(e)=>{
+        console.log('TTS error:',e.error);
+        setTimeout(next,200);
+      };
+      // 手机Chrome有时需要短暂延迟才能发音
+      setTimeout(()=>window.speechSynthesis.speak(u), idx===1?100:0);
     }
-    if(window.speechSynthesis.getVoices().length>0) next();
-    else{window.speechSynthesis.onvoiceschanged=next;setTimeout(next,500);}
+
+    function startSpeak(){
+      // 确保语音列表已加载
+      const voices=window.speechSynthesis.getVoices();
+      if(voices.length>0){
+        next();
+      } else {
+        window.speechSynthesis.onvoiceschanged=()=>{ next(); };
+        setTimeout(next, 800); // 超时兜底
+      }
+    }
+    startSpeak();
   });
 }
 
@@ -972,6 +1012,7 @@ function beginConversation(){
     document.getElementById('chat-start-zone').style.display='none';
     document.getElementById('chat-active-zone').style.display='flex';
     addBubble('sys',`剧本对话开始！你扮演 ${scriptState.userRole.cn}，点🎤说英文。`);
+    warmUpTTS();
     runScript();
   }else{
     chatStarted=true;
@@ -979,6 +1020,7 @@ function beginConversation(){
     document.getElementById('chat-active-zone').style.display='flex';
     setMic('disabled','AI正在准备...','');
     addBubble('sys','对话开始！听AI说完，点🎤回应。遇到困难点「💡提示」。');
+    warmUpTTS(); // 预热TTS，解决手机首次不发音
     aiTurn(null,true);
   }
 }
@@ -1164,6 +1206,9 @@ function addBubble(type,text){
 }
 
 window.speechSynthesis?.getVoices();
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
+}
 </script>
 </body>
 </html>
