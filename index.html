@@ -309,7 +309,7 @@ nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;t
 
 <script>
 // ══ 配置 ══════════════════════════════════════════════════
-const ARK_API_KEY = 'ark-5f63ade4-9f0c-4cf9-acd3-bfde292edac4-c69dd';
+const ARK_API_KEY = '在这里填入你的火山引擎API Key';
 const ARK_ENDPOINT = 'ep-20260625221755-f7mdk';
 const ARK_URL = 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
 
@@ -676,16 +676,21 @@ async function startFreeChat(){
   document.getElementById('free-input').value='';
   addFreeMsg('system','自由对话开始！AI会根据你的水平自然对话。点🎤开口说！😊');
 
-  const sysPrompt=`You are a friendly English conversation partner helping a Chinese learner practice speaking. ${topic.prompt} The learner's level is ${freeLevel}. Adjust your vocabulary and sentence complexity accordingly. Ask follow-up questions to keep the conversation going. If the learner makes a grammar mistake, naturally incorporate the correct form in your reply without making it awkward. Keep responses conversational and short (2-4 sentences). Speak only English. Start the conversation warmly.`;
+  const levelInstructions = {
+    beginner: 'IMPORTANT: The learner is a BEGINNER. Use ONLY very simple words (A1-A2 level). Keep each sentence under 8 words. Speak slowly and clearly. Ask only ONE simple question at a time. Use simple present tense mostly.',
+    intermediate: 'The learner is intermediate level. Use everyday vocabulary. Keep sentences moderate length. Ask one follow-up question.',
+    advanced: 'The learner is advanced. Speak naturally with varied vocabulary and sentence structures.'
+  };
+  const sysPrompt=`You are a friendly English conversation partner helping a Chinese learner practice speaking. ${topic.prompt} ${levelInstructions[freeLevel]} If the learner makes a grammar mistake, naturally model the correct form in your reply. Speak only English. Start the conversation warmly with a very simple opening.`;
 
   const loadEl=addFreeMsg('typing','AI: ...');
   try{
     const r=await callArk(sysPrompt,[{role:'user',content:'[Start the conversation]'}]);
     loadEl.className='bubble ai'; loadEl.textContent='AI: '+r;
-    speak(r); freeChatHistory.push({role:'assistant',content:r});
+    speak(r, freeLevel); freeChatHistory.push({role:'assistant',content:r});
   }catch(e){
     loadEl.className='bubble ai'; loadEl.textContent="AI: Hi! Let's practice English together! What would you like to talk about?";
-    speak("Hi! Let's practice English together!"); 
+    speak("Hi! Let's practice English together!", freeLevel); 
     freeChatHistory.push({role:'assistant',content:"Hi! Let's practice!"});
   }
 }
@@ -706,11 +711,16 @@ async function sendFree(){
   aiWaiting=true;
   const loadEl=addFreeMsg('typing','AI: ...');
   const topic=FREE_TOPICS.find(t=>t.id===freeTopic);
-  const sysPrompt=`You are a friendly English conversation partner. ${topic.prompt} Learner level: ${freeLevel}. Keep replies conversational (2-4 sentences). Ask a follow-up question. Naturally correct errors by modeling correct usage. Speak only English.`;
+  const levelInstr = {
+    beginner: 'IMPORTANT: Use ONLY simple words. Max 8 words per sentence. One simple question only.',
+    intermediate: 'Use everyday vocabulary. Moderate sentence length. One follow-up question.',
+    advanced: 'Speak naturally with varied vocabulary.'
+  };
+  const sysPrompt=`You are a friendly English conversation partner. ${topic.prompt} ${levelInstr[freeLevel]} Naturally correct errors by modeling correct usage. Speak only English.`;
   try{
     const r=await callArk(sysPrompt, freeChatHistory);
     loadEl.className='bubble ai'; loadEl.textContent='AI: '+r;
-    speak(r); freeChatHistory.push({role:'assistant',content:r});
+    speak(r, freeLevel); freeChatHistory.push({role:'assistant',content:r});
   }catch(e){
     loadEl.className='bubble hint'; loadEl.textContent='⚠️ 网络连接失败，请重试。';
   }
@@ -718,11 +728,12 @@ async function sendFree(){
 }
 
 // ══ TTS朗读 ═══════════════════════════════════════════════
-function speak(text){
+function speak(text, level){
   if(!ttsEnabled||!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const utter=new SpeechSynthesisUtterance(text);
-  utter.lang='en-US'; utter.rate=0.9; utter.pitch=1;
+  const rate = level==='beginner'?0.72 : level==='intermediate'?0.82 : 0.92;
+  utter.lang='en-US'; utter.rate=rate; utter.pitch=1;
   const voices=window.speechSynthesis.getVoices();
   const v=voices.find(v=>v.lang.startsWith('en-US'))||voices.find(v=>v.lang.startsWith('en'));
   if(v) utter.voice=v;
