@@ -731,13 +731,16 @@ async function sendFree(){
 function speak(text, level){
   if(!ttsEnabled||!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const utter=new SpeechSynthesisUtterance(text);
   const rate = level==='beginner'?0.72 : level==='intermediate'?0.82 : 0.92;
-  utter.lang='en-US'; utter.rate=rate; utter.pitch=1;
   const voices=window.speechSynthesis.getVoices();
   const v=voices.find(v=>v.lang.startsWith('en-US'))||voices.find(v=>v.lang.startsWith('en'));
-  if(v) utter.voice=v;
-  window.speechSynthesis.speak(utter);
+  const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
+  sentences.forEach(s=>{
+    const utter=new SpeechSynthesisUtterance(s.trim());
+    utter.lang='en-US'; utter.rate=rate; utter.pitch=1;
+    if(v) utter.voice=v;
+    window.speechSynthesis.speak(utter);
+  });
 }
 
 function toggleTTS(){
